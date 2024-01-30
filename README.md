@@ -17,17 +17,17 @@ Lightweight configuration focused on providing "basic features" with little boil
 
 * Create an `init.lua` file in your system. Use this command in your terminal if you don't know the specific location of Neovim's configuration folder.
 
-```sh
-nvim --headless -c 'call mkdir(stdpath("config"), "p") | exe "edit" stdpath("config") . "/init.lua" | write | quit'
-```
+  ```sh
+  nvim --headless -c 'call mkdir(stdpath("config"), "p") | exe "edit" stdpath("config") . "/init.lua" | write | quit'
+  ```
 
-To check the file was created you can use this command.
+  To check the file was created you can use this command.
 
-```sh
-nvim --headless -c 'echo $MYVIMRC' -c 'quit'
-```
+  ```sh
+  nvim --headless -c 'echo $MYVIMRC' -c 'quit'
+  ```
 
-This will show you the path of your `init.lua`
+  This will show you the path of your `init.lua`
 
 * Copy the content of `init.lua` in this repository into your own `init.lua`.
 
