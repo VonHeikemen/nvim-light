@@ -39,6 +39,22 @@ Your plugins will be installed in a separate directory from your configuration. 
 nvim --headless -c 'echo stdpath("data") . "/lazy/lazy.nvim" | quit'
 ```
 
+## Learn how to use Neovim as a text editor
+
+Neovim comes with an interactive tutorial that teaches the basics of the editor. It will show how to navigate in the code, how to execute commands and of course how to quit Neovim. You can access this tutorial by executing this command in your terminal.
+
+```sh
+nvim +Tutor
+```
+
+This video series by ThePrimeagen is also a good resource.
+
+* [Vim As Your Editor - Introduction](https://www.youtube.com/watch?v=X6AR2RMB5tE) 
+* [Vim As Your Editor - Horizontal Movements](https://youtu.be/5JGVtttuDQA) 
+* [Vim As Your Editor - Vertical Movements](https://www.youtube.com/watch?v=KfENDDEpCsI)
+
+> Note: if you see a video from ThePrimeagen called "0 to LSP" ignore the part were he configures the plugin called `lsp-zero`. That plugin has changed a lot since the video was released. And also, the plugin manager he uses is no longer mantained.
+
 ## Learn the basics of lua and Neovim's api
 
 This configuration was created using a scripting language called `lua`, I highly recommend that you learn the syntax of this language. Learn just enough to know what is valid. Here are a couple resources:
