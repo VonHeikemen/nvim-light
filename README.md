@@ -33,14 +33,6 @@ Lightweight configuration focused on providing "basic features" with little boil
 
 * Open Neovim, use the command `nvim` in your terminal. When Neovim starts all plugins will be downloaded automatically.
 
-### Plugins directory
-
-Your plugins will be installed in a separate directory from your configuration. The location of this directory depends on your operating system and environment variables, so you'll need to execute this command to know where that is.
-
-```sh
-nvim --headless -c 'echo stdpath("data") . "/lazy/lazy.nvim" | quit'
-```
-
 ## Learn how to use Neovim as a text editor
 
 Neovim comes with an interactive tutorial that teaches the basics of the editor. It will show how to navigate in the code, how to execute commands and of course how to quit Neovim. You can access this tutorial by executing this command in your terminal.
@@ -100,6 +92,14 @@ So, `lazy.nvim` is the plugin manager used in this configuration. Here are a few
 * [Lazy.nvim: plugin configuration](https://dev.to/vonheikemen/lazynvim-plugin-configuration-3opi). Here you'll learn about the "plugin spec" and how to split your plugin setup into multiple files.
 
 * [Lazy.nvim: how to revert a plugin back to a previous version](https://dev.to/vonheikemen/lazynvim-how-to-revert-a-plugin-back-to-a-previous-version-1pdp). Learn how to recover from a bad plugin update.
+
+### Plugins directory
+
+Your plugins will be installed in a separate directory from your configuration. The location of this directory depends on your operating system and environment variables, so you'll need to execute this command to know where that is.
+
+```sh
+nvim --headless -c 'echo stdpath("data") . "/lazy/lazy.nvim" | quit'
+```
 
 ## Keybindings
 
