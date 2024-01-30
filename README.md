@@ -15,21 +15,23 @@ Lightweight configuration focused on providing "basic features" with little boil
 
 * Backup your existing configuration if you have one.
 
-* Create an `init.lua` file in your system. Use this command if you don't know the specific location of Neovim's configuration folder.
+* Create an `init.lua` file in your system. Use this command in your terminal if you don't know the specific location of Neovim's configuration folder.
 
 ```sh
 nvim --headless -c 'call mkdir(stdpath("config"), "p") | exe "edit" stdpath("config") . "/init.lua" | write | quit'
 ```
 
-* Open your configuration file with Neovim.
+To check the file was created you can use this command.
 
 ```sh
-nvim -c 'edit $MYVIMRC'
+nvim --headless -c 'echo $MYVIMRC' -c 'quit'
 ```
+
+This will show you the path of your `init.lua`
 
 * Copy the content of `init.lua` in this repository into your own `init.lua`.
 
-* Next time you start Neovim all plugins will be downloaded automatically. After plugins are downloaded restart Neovim.
+* Open Neovim, use the command `nvim` in your terminal. When Neovim starts all plugins will be downloaded automatically.
 
 ### Plugins directory
 
