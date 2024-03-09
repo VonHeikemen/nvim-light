@@ -41,7 +41,7 @@ If you experience performance issues with the plugin `Telescope` then you might 
 
 ## Learn how to use Neovim as a text editor
 
-Neovim comes with an interactive tutorial that teaches the basics of the editor. The estimated time of this tutorial is around 30 minutes. It will show you how to move around text, how to execute commands and of course how to quit Neovim. You can access the tutorial by executing this command in your terminal.
+Neovim comes with an interactive tutorial that teaches the basics of the editor. The estimated time of this tutorial is around 45 minutes. It will show you how to move around text, how to execute commands and of course how to quit Neovim. You can access the tutorial by executing this command in your terminal.
 
 ```sh
 nvim +Tutor
@@ -56,8 +56,8 @@ Note there is also a book inside Neovim's documentation, this is called the user
 
 This configuration was created using a scripting language called `lua`, I highly recommend that you learn the syntax of this language. Learn just enough to know what is valid. Here are a couple resources:
 
-* [Learn lua in Y minutes](https://learnxinyminutes.com/docs/lua/) 
-* [Lua crash course (video)](https://www.youtube.com/watch?v=NneB6GX1Els)
+* [Learn X in Y minutes: Where X = lua](https://learnxinyminutes.com/docs/lua/) 
+* [Lua crash course (12min video)](https://www.youtube.com/watch?v=NneB6GX1Els)
 
 Next step is to get familiar with Neovim's lua api, so you can create your own keybindings and commands. Here are a couple of guides you can read:
 
