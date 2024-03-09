@@ -166,7 +166,7 @@ cmp.setup({
     {name = 'nvim_lsp'},
     {name = 'buffer'},
   },
-  formatting = lsp_zero.cmp_format(),
+  formatting = lsp_zero.cmp_format({details = true}),
   mapping = cmp.mapping.preset.insert({
     ['<CR>'] = cmp.mapping.confirm({select = false}),
     ['<C-Space>'] = cmp.mapping.complete(),
