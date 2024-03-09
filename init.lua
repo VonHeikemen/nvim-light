@@ -103,9 +103,8 @@ require('lualine').setup({
 
 -- See :help nvim-treesitter-modules
 require('nvim-treesitter.configs').setup({
-  highlight = {
-    enable = true,
-  },
+  highlight = { enable = true, },
+  auto_install = true,
   ensure_installed = {'lua', 'vim', 'vimdoc', 'json'},
 })
 
