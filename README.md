@@ -11,6 +11,12 @@ Lightweight configuration focused on providing "basic features" with little boil
 * (optional) [ripgrep](https://github.com/BurntSushi/ripgrep). Improves project wide search speed.
 * (optional) [fd](https://github.com/sharkdp/fd). Improves file search speed.
 
+### Note for windows users
+
+If you need a `C` compiler then `zig` is the easiest to install. It's available on `winget`, `scoop` and `chocolatey`. You can also find some links in their [download page](https://ziglang.org/download/). 
+
+If you experience performance issues with the plugin `Telescope` then you might want to try an alternative like [fzf.lua](https://github.com/ibhagwan/fzf-lua).
+
 ## Installation
 
 * Backup your existing configuration if you have one.
