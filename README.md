@@ -13,7 +13,7 @@ Lightweight configuration focused on providing "basic features" with little boil
 
 ### Note for windows users
 
-If you need a `C` compiler then `zig` is the easiest to install. It's available on `winget`, `scoop` and `chocolatey`. You can also find some links in their [download page](https://ziglang.org/download/). 
+If you need a `C` compiler then `zig` is the easiest to install. It's available on `winget`, `scoop` and `chocolatey`. You can also find some links in the [zig download page](https://ziglang.org/download/). 
 
 If you experience performance issues with the plugin `Telescope` then you might want to try an alternative like [fzf.lua](https://github.com/ibhagwan/fzf-lua).
 
@@ -53,8 +53,6 @@ This video series by ThePrimeagen is also a good resource.
 * [Vim As Your Editor - Horizontal Movements](https://youtu.be/5JGVtttuDQA) 
 * [Vim As Your Editor - Vertical Movements](https://www.youtube.com/watch?v=KfENDDEpCsI)
 
-> Note: if you see a video from ThePrimeagen called "0 to LSP" ignore the part were he configures the plugin called `lsp-zero`. That plugin has changed a lot since the video was released. And also, the plugin manager he uses is no longer mantained.
-
 ## Learn the basics of lua and Neovim's api
 
 This configuration was created using a scripting language called `lua`, I highly recommend that you learn the syntax of this language. Learn just enough to know what is valid. Here are a couple resources:
@@ -67,11 +65,11 @@ Next step is to get familiar with Neovim's lua api, so you can create your own k
 * [Build your first Neovim configuration in lua](https://vonheikemen.github.io/devlog/tools/build-your-first-lua-config-for-neovim/) 
 * [Neovim's official lua guide](https://neovim.io/doc/user/lua-guide.html)
 
-## About LSP servers
+## About language servers
 
-They are external programs that provide IDE-like features to Neovim. You need to install them manually. Go to nvim-lspconfig's documentation, in [server_configuration.md](https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md) you'll find links and instruction on how to install all the supported LSP servers.
+They are external programs that provide IDE-like features to Neovim. You need to install them manually. Go to nvim-lspconfig's documentation, in [server_configuration.md](https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md) you'll find links and instruction on how to install all the supported language servers.
 
-Once the LSP server is available in your system you need to add the setup function to your config.
+Once you have a language server available in your system you need to add their setup function to your config.
 
 For example, if you installed the typescript language server you need to add this.
 
