@@ -128,6 +128,12 @@ Leader key: `Space`.
 | Normal | `gl` | Show diagnostics in a floating window. |
 | Normal | `[d` | Move to the previous diagnostic. |
 | Normal | `]d` | Move to the next diagnostic. |
+| Normal | `gcc` | Toggle comment in current line. |
+| Operator | `gc` | Toggle comment in text. |
+| Operator | `sa` | Add surrounding. |
+| Normal | `sd` | Delete surrounding. |
+| Normal | `sr` | Surround replace. |
+| Normal | `sf` | Find surrounding. |
 | Normal | `<leader>e` | Toggle file explorer. |
 | Normal | `<leader>E` | Open file explorer in current folder. |
 | Normal | `<leader>bc` | Close current buffer and preserve window layout. |
@@ -159,10 +165,9 @@ Leader key: `Space`.
 | --- | --- |
 | [lazy.nvim](https://github.com/folke/lazy.nvim) | Plugin manager. |
 | [tokyonight.nvim](https://github.com/folke/tokyonight.nvim) | Collection of colorscheme for Neovim. |
+| [which-key.nvim](https://github.com/folke/which-key.nvim) | Provide clues for keymaps. |
 | [lualine.nvim](https://github.com/nvim-lualine/lualine.nvim) | Pretty statusline. |
-| [mini.comment](https://github.com/echasnovski/mini.comment) | Toggle comments. |
-| [mini.surround](https://github.com/echasnovski/mini.surround) | Add, replace, delete surroundings (like pair of parenthesis, quotes, etc). |
-| [mini.bufremove](https://github.com/echasnovski/mini.bufremove) | Remove buffers while preserving window layout. |
+| [mini.nvim](https://github.com/echasnovski/mini.nvim) | Collection of independent lua modules that enhance Neovim's features. |
 | [plenary.nvim](https://github.com/nvim-lua/plenary.nvim) | Collection of lua modules. It helps plugin authors solve common problems. |
 | [telescope.nvim](https://github.com/nvim-telescope/telescope.nvim) | Fuzzy finder. |
 | [telescope-fzf-native.nvim](https://github.com/nvim-telescope/telescope-fzf-native.nvim) | Extension for telescope. Allows fzf-like syntax in search queries. |

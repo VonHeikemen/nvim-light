@@ -59,14 +59,13 @@ lazy.opts = {}
 
 lazy.setup({
   {'folke/tokyonight.nvim'},
+  {'folke/which-key.nvim'},
   {'nvim-lualine/lualine.nvim'},
   {'nvim-lua/plenary.nvim'},
   {'nvim-treesitter/nvim-treesitter'},
   {'nvim-telescope/telescope.nvim', branch = '0.1.x'},
   {'nvim-telescope/telescope-fzf-native.nvim', build = 'make', enabled = is_unix},
-  {'echasnovski/mini.comment', branch = 'stable'},
-  {'echasnovski/mini.surround', branch = 'stable'},
-  {'echasnovski/mini.bufremove', branch = 'stable'},
+  {'echasnovski/mini.nvim', branch = 'stable'},
   {'VonHeikemen/lsp-zero.nvim', branch = 'v3.x'},
   {'neovim/nvim-lspconfig'},
   {'hrsh7th/nvim-cmp'},
@@ -107,6 +106,12 @@ require('nvim-treesitter.configs').setup({
   ensure_installed = {'lua', 'vim', 'vimdoc', 'json'},
 })
 
+-- See :help which-key.nvim-which-key-configuration
+require('which-key').setup({})
+
+-- See :help MiniAi-textobject-builtin
+require('mini.ai').setup({n_lines = 500})
+
 -- See :help MiniComment.config
 require('mini.comment').setup({})
 
@@ -116,15 +121,16 @@ require('mini.surround').setup({})
 -- See :help MiniBufremove.config
 require('mini.bufremove').setup({})
 
-vim.keymap.set('n', '<leader>bc', '<cmd>lua pcall(MiniBufremove.delete)<cr>')
+-- Close buffer and preserve window layout
+vim.keymap.set('n', '<leader>bc', '<cmd>lua pcall(MiniBufremove.delete)<cr>', {desc = 'Close buffer'})
 
 -- See :help telescope.builtin
 vim.keymap.set('n', '<leader>?', '<cmd>Telescope oldfiles<cr>', {desc = 'Search file history'})
 vim.keymap.set('n', '<leader><space>', '<cmd>Telescope buffers<cr>', {desc = 'Search open files'})
-vim.keymap.set('n', '<leader>ff', '<cmd>Telescope find_files<cr>', {desc = 'Search files in project'})
-vim.keymap.set('n', '<leader>fg', '<cmd>Telescope live_grep<cr>', {desc = 'Search term in project'})
-vim.keymap.set('n', '<leader>fd', '<cmd>Telescope diagnostics<cr>', {desc = 'Search diagnostics message'})
-vim.keymap.set('n', '<leader>fs', '<cmd>Telescope current_buffer_fuzzy_find<cr>', {desc = 'Search term in current file'})
+vim.keymap.set('n', '<leader>ff', '<cmd>Telescope find_files<cr>', {desc = 'Search all files'})
+vim.keymap.set('n', '<leader>fg', '<cmd>Telescope live_grep<cr>', {desc = 'Search in project'})
+vim.keymap.set('n', '<leader>fd', '<cmd>Telescope diagnostics<cr>', {desc = 'Search diagnostics'})
+vim.keymap.set('n', '<leader>fs', '<cmd>Telescope current_buffer_fuzzy_find<cr>', {desc = 'Buffer local search'})
 
 if is_unix then
   require('telescope').load_extension('fzf')
@@ -137,7 +143,7 @@ local lsp_zero = require('lsp-zero')
 
 lsp_zero.on_attach(function(client, bufnr)
   -- See :help lsp-zero-keybindings
-  lsp_zero.default_keymaps({buffer = bufnr})
+  lsp_zero.default_keymaps({buffer = bufnr, preserve_mappings = false})
 end)
 
 -- See :help lspconfig-setup
