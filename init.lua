@@ -110,6 +110,10 @@ require('nvim-treesitter.configs').setup({
 
 -- See :help which-key.nvim-which-key-configuration
 require('which-key').setup({})
+require('which-key').register({
+  ['<leader>f'] = {name = 'Fuzzy Find', _ = 'which_key_ignore'},
+  ['<leader>b'] = {name = 'Buffer', _ = 'which_key_ignore'},
+})
 
 -- See :help MiniAi-textobject-builtin
 require('mini.ai').setup({n_lines = 500})
