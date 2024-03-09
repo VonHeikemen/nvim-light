@@ -10,6 +10,8 @@ vim.opt.tabstop = 2
 vim.opt.shiftwidth = 2
 vim.opt.showmode = false
 vim.opt.termguicolors = true
+vim.opt.updatetime = 250
+vim.opt.timeoutlen = 300
 
 -- Space as leader key
 vim.g.mapleader = ' '
