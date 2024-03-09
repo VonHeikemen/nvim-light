@@ -41,17 +41,16 @@ If you experience performance issues with the plugin `Telescope` then you might 
 
 ## Learn how to use Neovim as a text editor
 
-Neovim comes with an interactive tutorial that teaches the basics of the editor. It will show how to navigate in the code, how to execute commands and of course how to quit Neovim. You can access this tutorial by executing this command in your terminal.
+Neovim comes with an interactive tutorial that teaches the basics of the editor. The estimated time of this tutorial is around 30 minutes. It will show you how to move around text, how to execute commands and of course how to quit Neovim. You can access the tutorial by executing this command in your terminal.
 
 ```sh
 nvim +Tutor
 ```
 
-This video series by ThePrimeagen is also a good resource.
+Note there is also a book inside Neovim's documentation, this is called the user manual. You can find it online here:
 
-* [Vim As Your Editor - Introduction](https://www.youtube.com/watch?v=X6AR2RMB5tE) 
-* [Vim As Your Editor - Horizontal Movements](https://youtu.be/5JGVtttuDQA) 
-* [Vim As Your Editor - Vertical Movements](https://www.youtube.com/watch?v=KfENDDEpCsI)
+* [Neovim online docs: user manual](https://neovim.io/doc/user/usr_toc.html#user-manual) 
+* [TJ DeVries reads Neovim's user manual (9h27min video)](https://www.youtube.com/watch?v=rT-fbLFOCy0)
 
 ## Learn the basics of lua and Neovim's api
 
@@ -67,9 +66,11 @@ Next step is to get familiar with Neovim's lua api, so you can create your own k
 
 ## About language servers
 
-They are external programs that provide IDE-like features to Neovim. You need to install them manually. Go to nvim-lspconfig's documentation, in [server_configuration.md](https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md) you'll find links and instruction on how to install all the supported language servers.
+They are external programs that provide IDE-like features to Neovim. If you want to know more about language servers watch this wonderful 5 minutes video: [LSP explained](https://www.youtube.com/watch?v=LaS32vctfOY).
 
-Once you have a language server available in your system you need to add their setup function to your config.
+To know what language servers are supported you need to go to nvim-lspconfig's documentation, in [server_configuration.md](https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md) you'll find links and instruction on how to install them.
+
+Once you have a language server is available in your system you need to add their setup function to your config.
 
 For example, if you installed the typescript language server you need to add this.
 
@@ -79,19 +80,13 @@ require('lspconfig').tsserver.setup({})
 
 ## About syntax highlight
 
-To get a more accurate syntax highlight for your favorite language you need to download something called a "treesitter parser".  Use the command `TSInstall` plus the name of a supported language to download and install its parser.
+To get a more accurate syntax highlight for your favorite language you need to download something called a "treesitter parser". These will be downloaded automatically by the plugin [nvim-treesitter](https://github.com/nvim-treesitter/nvim-treesitter).
 
-For example if you wanted to install a parser for javascript, you need to execute this command.
+You can also instruct Neovim to download a treesitter parser by adding a name to the property `ensure_installed` located in the setup function of `nvim-treesitter.configs`.
 
-```vim
-:TSInstall javascript
-```
+## Learn more about the plugin manager
 
-You can also instruct Neovim to download the parser you need by adding a name to the property `ensure_installed` located in the setup function of `nvim-treesitter.configs`.
-
-## Learn more about lazy.nvim
-
-So, `lazy.nvim` is the plugin manager used in this configuration. Here are a few resources that will help you understand some of it's features:
+`lazy.nvim` is the plugin manager used in this configuration. Here are a few resources that will help you understand some of it's features:
 
 * [Lazy.nvim: plugin configuration](https://dev.to/vonheikemen/lazynvim-plugin-configuration-3opi). Here you'll learn about the "plugin spec" and how to split your plugin setup into multiple files.
 
