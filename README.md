@@ -111,70 +111,70 @@ nvim --headless -c 'echo stdpath("data") . "/lazy/lazy.nvim" | quit'
 
 Leader key: `Space`.
 
-| Mode | Key | Action |
-| --- | --- | --- |
-| Normal | `gy` | Copy text to clipboard. |
-| Normal | `gp` | Paste text from clipboard. |
-| Normal | `K` | Displays hover information about the symbol under the cursor. |
-| Normal | `gd` | Jump to the definition. |
-| Normal | `gD` | Jump to declaration. |
-| Normal | `gi` | Lists all the implementations for the symbol under the cursor. |
-| Normal | `go` | Jumps to the definition of the type symbol |
-| Normal | `gr` | Lists all the references. |
-| Normal | `gs` | Displays a function's signature information. |
-| Normal | `<F2>` | Renames all references to the symbol under the cursor. |
-| Normal | `<F3>` | Format code in current buffer. |
-| Normal | `<F4>` | Selects a code action available at the current cursor position. |
-| Normal | `gl` | Show diagnostics in a floating window. |
-| Normal | `[d` | Move to the previous diagnostic. |
-| Normal | `]d` | Move to the next diagnostic. |
-| Normal | `gcc` | Toggle comment in current line. |
-| Operator | `gc` | Toggle comment in text. |
-| Operator | `sa` | Add surrounding. |
-| Normal | `sd` | Delete surrounding. |
-| Normal | `sr` | Surround replace. |
-| Normal | `sf` | Find surrounding. |
-| Normal | `<leader>e` | Toggle file explorer. |
-| Normal | `<leader>E` | Open file explorer in current folder. |
-| Normal | `<leader>bc` | Close current buffer and preserve window layout. |
-| Normal | `<leader>?` | Search oldfiles history. |
-| Normal | `<leader><space>` | Search open buffers. |
-| Normal | `<leader>ff` | Find file in current working directory. |
-| Normal | `<leader>fg` | Search pattern in current working directory. Interactive "grep search". |
-| Normal | `<leader>fd` | Search diagnostics in current file. |
-| Normal | `<leader>fs` | Search pattern in current file. |
+| Mode     | Key               | Action                                                                  |
+| ---      | ---               | ---                                                                     |
+| Normal   | `gy`              | Copy text to clipboard.                                                 |
+| Normal   | `gp`              | Paste text from clipboard.                                              |
+| Normal   | `K`               | Displays hover information about the symbol under the cursor.           |
+| Normal   | `gd`              | Jump to the definition.                                                 |
+| Normal   | `gD`              | Jump to declaration.                                                    |
+| Normal   | `gi`              | Lists all the implementations for the symbol under the cursor.          |
+| Normal   | `go`              | Jumps to the definition of the type symbol                              |
+| Normal   | `gr`              | Lists all the references.                                               |
+| Normal   | `gs`              | Displays a function's signature information.                            |
+| Normal   | `<F2>`            | Renames all references to the symbol under the cursor.                  |
+| Normal   | `<F3>`            | Format code in current buffer.                                          |
+| Normal   | `<F4>`            | Selects a code action available at the current cursor position.         |
+| Normal   | `gl`              | Show diagnostics in a floating window.                                  |
+| Normal   | `[d`              | Move to the previous diagnostic.                                        |
+| Normal   | `]d`              | Move to the next diagnostic.                                            |
+| Normal   | `gcc`             | Toggle comment in current line.                                         |
+| Operator | `gc`              | Toggle comment in text.                                                 |
+| Operator | `sa`              | Add surrounding.                                                        |
+| Normal   | `sd`              | Delete surrounding.                                                     |
+| Normal   | `sr`              | Surround replace.                                                       |
+| Normal   | `sf`              | Find surrounding.                                                       |
+| Normal   | `<leader>e`       | Toggle file explorer.                                                   |
+| Normal   | `<leader>E`       | Open file explorer in current folder.                                   |
+| Normal   | `<leader>bc`      | Close current buffer and preserve window layout.                        |
+| Normal   | `<leader>?`       | Search oldfiles history.                                                |
+| Normal   | `<leader><space>` | Search open buffers.                                                    |
+| Normal   | `<leader>ff`      | Find file in current working directory.                                 |
+| Normal   | `<leader>fg`      | Search pattern in current working directory. Interactive "grep search". |
+| Normal   | `<leader>fd`      | Search diagnostics in current file.                                     |
+| Normal   | `<leader>fs`      | Search pattern in current file.                                         |
 
 ### Autocomplete keybindings
 
-| Mode | Key | Action |
-| --- | --- | --- |
-| Insert | `<Ctrl-y>` | Confirm completion. |
-| Insert | `<Enter>` | Confirm completion. |
-| Insert | `<Ctrl-e>` | Cancel completion. |
-| Insert | `<Ctrl-p>` | Move to previous item. |
-| Insert | `<Ctrl-n>` | Move to next item. |
-| Insert | `<Ctrl-u>` | Scroll up in documentation window. |
-| Insert | `<Ctrl-d>` | Scroll down in documentation window. |
-| Insert | `<Ctrl-b>` | Jump to the previous snippet placeholder. |
-| Insert | `<Ctrl-f>` | Jump to the next snippet placeholder. |
-| Insert | `<Ctrl-Space>` | Trigger completion. |
+| Mode   | Key            | Action                                    |
+| ---    | ---            | ---                                       |
+| Insert | `<Ctrl-y>`     | Confirm completion.                       |
+| Insert | `<Enter>`      | Confirm completion.                       |
+| Insert | `<Ctrl-e>`     | Cancel completion.                        |
+| Insert | `<Ctrl-p>`     | Move to previous item.                    |
+| Insert | `<Ctrl-n>`     | Move to next item.                        |
+| Insert | `<Ctrl-u>`     | Scroll up in documentation window.        |
+| Insert | `<Ctrl-d>`     | Scroll down in documentation window.      |
+| Insert | `<Ctrl-b>`     | Jump to the previous snippet placeholder. |
+| Insert | `<Ctrl-f>`     | Jump to the next snippet placeholder.     |
+| Insert | `<Ctrl-Space>` | Trigger completion.                       |
 
 ## Plugin list
 
-| Name | Description  |
-| --- | --- |
-| [lazy.nvim](https://github.com/folke/lazy.nvim) | Plugin manager. |
-| [tokyonight.nvim](https://github.com/folke/tokyonight.nvim) | Collection of colorscheme for Neovim. |
-| [which-key.nvim](https://github.com/folke/which-key.nvim) | Provide clues for keymaps. |
-| [lualine.nvim](https://github.com/nvim-lualine/lualine.nvim) | Pretty statusline. |
-| [mini.nvim](https://github.com/echasnovski/mini.nvim) | Collection of independent lua modules that enhance Neovim's features. |
-| [plenary.nvim](https://github.com/nvim-lua/plenary.nvim) | Collection of lua modules. It helps plugin authors solve common problems. |
-| [telescope.nvim](https://github.com/nvim-telescope/telescope.nvim) | Fuzzy finder. |
-| [telescope-fzf-native.nvim](https://github.com/nvim-telescope/telescope-fzf-native.nvim) | Extension for telescope. Allows fzf-like syntax in search queries. |
-| [nvim-treesitter](https://github.com/nvim-treesitter/nvim-treesitter) | Configures treesitter parsers. Provides modules to manipulate code. |
-| [lsp-zero.nvim](https://github.com/VonHeikemen/lsp-zero.nvim) | Bundles the boilerplate code needed to configure lspconfig and nvim-cmp. |
-| [nvim-lspconfig](https://github.com/neovim/nvim-lspconfig) | Quickstart configs for Neovim's LSP client.  |
-| [nvim-cmp](https://github.com/hrsh7th/nvim-cmp) | Autocompletion engine. |
-| [cmp-nvim-lsp](https://github.com/hrsh7th/cmp-nvim-lsp) | nvim-cmp source. Show suggestions based on LSP servers queries. |
-| [cmp-buffer](https://github.com/hrsh7th/cmp-buffer) | nvim-cmp source. Suggest words in the current buffer. |
-| [LuaSnip](https://github.com/L3MON4D3/LuaSnip) | Snippet engine. |
+| Name                                                                                     | Description                                                               |
+| ---                                                                                      | ---                                                                       |
+| [lazy.nvim](https://github.com/folke/lazy.nvim)                                          | Plugin manager.                                                           |
+| [tokyonight.nvim](https://github.com/folke/tokyonight.nvim)                              | Collection of colorscheme for Neovim.                                     |
+| [which-key.nvim](https://github.com/folke/which-key.nvim)                                | Provide clues for keymaps.                                                |
+| [lualine.nvim](https://github.com/nvim-lualine/lualine.nvim)                             | Pretty statusline.                                                        |
+| [mini.nvim](https://github.com/echasnovski/mini.nvim)                                    | Collection of independent lua modules that enhance Neovim's features.     |
+| [plenary.nvim](https://github.com/nvim-lua/plenary.nvim)                                 | Collection of lua modules. It helps plugin authors solve common problems. |
+| [telescope.nvim](https://github.com/nvim-telescope/telescope.nvim)                       | Fuzzy finder.                                                             |
+| [telescope-fzf-native.nvim](https://github.com/nvim-telescope/telescope-fzf-native.nvim) | Extension for telescope. Allows fzf-like syntax in search queries.        |
+| [nvim-treesitter](https://github.com/nvim-treesitter/nvim-treesitter)                    | Configures treesitter parsers. Provides modules to manipulate code.       |
+| [lsp-zero.nvim](https://github.com/VonHeikemen/lsp-zero.nvim)                            | Bundles the boilerplate code needed to configure lspconfig and nvim-cmp.  |
+| [nvim-lspconfig](https://github.com/neovim/nvim-lspconfig)                               | Quickstart configs for Neovim's LSP client.                               |
+| [nvim-cmp](https://github.com/hrsh7th/nvim-cmp)                                          | Autocompletion engine.                                                    |
+| [cmp-nvim-lsp](https://github.com/hrsh7th/cmp-nvim-lsp)                                  | nvim-cmp source. Show suggestions based on LSP servers queries.           |
+| [cmp-buffer](https://github.com/hrsh7th/cmp-buffer)                                      | nvim-cmp source. Suggest words in the current buffer.                     |
+| [LuaSnip](https://github.com/L3MON4D3/LuaSnip)                                           | Snippet engine.                                                           |
