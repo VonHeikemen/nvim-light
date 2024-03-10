@@ -71,7 +71,7 @@ They are external programs that provide IDE-like features to Neovim. If you want
 
 To know what language servers are supported you need to go to nvim-lspconfig's documentation, in [server_configuration.md](https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md) you'll find links and instruction on how to install them.
 
-Once you have a language server is available in your system you need to add their setup function to your config.
+Once you have a language server available in your system you need to add its setup function to your config.
 
 For example, if you installed the typescript language server you need to add this.
 
