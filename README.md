@@ -1,6 +1,6 @@
 # nvim-light
 
-Lightweight configuration focused on providing "basic features" with little boilerplate. It includes better syntax highlight, a fuzzy finder and a ready made LSP setup with autocompletion.
+Lightweight configuration focused on providing "basic features" with little boilerplate. It includes better syntax highlight, a fuzzy finder and IDE-like features powered by Neovim's LSP client.
 
 ## Requirements
 
@@ -8,6 +8,7 @@ Lightweight configuration focused on providing "basic features" with little boil
 * git.
 * A `C` compiler. Can be `gcc`, `tcc` or `zig`.
 * [make](https://www.gnu.org/software/make/), the build tool.
+* A [language server](#about-language-servers). Required to actually enable the "IDE-like" features.
 * (optional) [ripgrep](https://github.com/BurntSushi/ripgrep). Improves project wide search speed.
 * (optional) [fd](https://github.com/sharkdp/fd). Improves file search speed.
 
