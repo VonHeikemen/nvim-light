@@ -2,6 +2,10 @@
 -- ==                           EDITOR SETTINGS                            == --
 -- ========================================================================== --
 
+--- Learn more about Neovim's lua api
+--- https://neovim.io/doc/user/lua-guide.html
+--- https://vonheikemen.github.io/devlog/tools/build-your-first-lua-config-for-neovim/
+
 vim.opt.number = true
 vim.opt.ignorecase = true
 vim.opt.smartcase = true
@@ -60,6 +64,8 @@ end
 lazy.path = vim.fn.stdpath('data') .. '/lazy/lazy.nvim'
 lazy.opts = {}
 
+--- Learn more about lazy.nvim
+--- https://dev.to/vonheikemen/lazynvim-plugin-configuration-3opi
 lazy.setup({
   {'folke/tokyonight.nvim'},
   {'folke/which-key.nvim'},
@@ -76,7 +82,6 @@ lazy.setup({
   {'hrsh7th/cmp-buffer'},
   {'L3MON4D3/LuaSnip'},
 })
-
 
 -- ========================================================================== --
 -- ==                         PLUGIN CONFIGURATION                         == --
