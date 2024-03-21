@@ -2,7 +2,7 @@
 -- ==                           EDITOR SETTINGS                            == --
 -- ========================================================================== --
 
---- Learn more about Neovim's lua api
+--- Learn more about Neovim lua api
 --- https://neovim.io/doc/user/lua-guide.html
 --- https://vonheikemen.github.io/devlog/tools/build-your-first-lua-config-for-neovim/
 
