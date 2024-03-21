@@ -64,8 +64,8 @@ end
 lazy.path = vim.fn.stdpath('data') .. '/lazy/lazy.nvim'
 lazy.opts = {}
 
---- Learn more about lazy.nvim
---- https://dev.to/vonheikemen/lazynvim-plugin-configuration-3opi
+-- Learn more about lazy.nvim
+-- https://dev.to/vonheikemen/lazynvim-plugin-configuration-3opi
 lazy.setup({
   {'folke/tokyonight.nvim'},
   {'folke/which-key.nvim'},
