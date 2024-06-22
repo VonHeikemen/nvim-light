@@ -7,7 +7,6 @@ Lightweight configuration focused on providing "basic features" with little boil
 * Neovim v0.8 or greater.
 * git.
 * A `C` compiler. Can be `gcc`, `tcc` or `zig`.
-* [make](https://www.gnu.org/software/make/), the build tool.
 * A [language server](#about-language-servers). Required to actually enable the "IDE-like" features.
 * (optional) [ripgrep](https://github.com/BurntSushi/ripgrep). Improves project wide search speed.
 * (optional) [fd](https://github.com/sharkdp/fd). Improves file search speed.

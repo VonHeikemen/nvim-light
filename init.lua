@@ -25,8 +25,6 @@ vim.g.mapleader = ' '
 vim.keymap.set({'n', 'x', 'o'}, 'gy', '"+y', {desc = 'Copy to clipboard'})
 vim.keymap.set({'n', 'x', 'o'}, 'gp', '"+p', {desc = 'Paste clipboard content'})
 
-local is_unix = vim.fn.has('unix') == 1 or vim.fn.has('mac') == 1
-
 -- ========================================================================== --
 -- ==                               PLUGINS                                == --
 -- ========================================================================== --
@@ -73,7 +71,7 @@ lazy.setup({
   {'nvim-lua/plenary.nvim'},
   {'nvim-treesitter/nvim-treesitter'},
   {'nvim-telescope/telescope.nvim', branch = '0.1.x'},
-  {'nvim-telescope/telescope-fzf-native.nvim', build = 'make', enabled = is_unix},
+  {'natecraddock/telescope-zf-native.nvim'},
   {'echasnovski/mini.nvim', branch = 'stable'},
   {'VonHeikemen/lsp-zero.nvim', branch = 'v3.x'},
   {'neovim/nvim-lspconfig'},
@@ -143,9 +141,7 @@ vim.keymap.set('n', '<leader>fg', '<cmd>Telescope live_grep<cr>', {desc = 'Searc
 vim.keymap.set('n', '<leader>fd', '<cmd>Telescope diagnostics<cr>', {desc = 'Search diagnostics'})
 vim.keymap.set('n', '<leader>fs', '<cmd>Telescope current_buffer_fuzzy_find<cr>', {desc = 'Buffer local search'})
 
-if is_unix then
-  require('telescope').load_extension('fzf')
-end
+require('telescope').load_extension('zf-native')
 
 -- lsp-zero will integrate lspconfig and cmp for you
 -- If you wish to do that manually, see the code here: 
