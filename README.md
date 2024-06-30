@@ -118,7 +118,7 @@ Leader key: `Space`.
 | Normal   | `<F2>`            | Renames all references to the symbol under the cursor.                  |
 | Normal   | `<F3>`            | Format code in current buffer.                                          |
 | Normal   | `<F4>`            | Selects a code action available at the current cursor position.         |
-| Normal   | `<C-w>d`          | Show diagnostics in a floating window.                                  |
+| Normal   | `<Ctrl-w>d`       | Show diagnostics in a floating window.                                  |
 | Normal   | `[d`              | Move to the previous diagnostic.                                        |
 | Normal   | `]d`              | Move to the next diagnostic.                                            |
 | Normal   | `gcc`             | Toggle comment in current line.                                         |
