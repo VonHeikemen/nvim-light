@@ -4,7 +4,7 @@ Lightweight configuration focused on providing "basic features" with little boil
 
 ## Requirements
 
-* Neovim v0.8 or greater.
+* Neovim v0.10 or greater.
 * git.
 * A `C` compiler. Can be `gcc`, `tcc` or `zig`.
 * A [language server](#about-language-servers). Required to actually enable the "IDE-like" features.
@@ -118,7 +118,7 @@ Leader key: `Space`.
 | Normal   | `<F2>`            | Renames all references to the symbol under the cursor.                  |
 | Normal   | `<F3>`            | Format code in current buffer.                                          |
 | Normal   | `<F4>`            | Selects a code action available at the current cursor position.         |
-| Normal   | `gl`              | Show diagnostics in a floating window.                                  |
+| Normal   | `<C-w>d`          | Show diagnostics in a floating window.                                  |
 | Normal   | `[d`              | Move to the previous diagnostic.                                        |
 | Normal   | `]d`              | Move to the next diagnostic.                                            |
 | Normal   | `gcc`             | Toggle comment in current line.                                         |
@@ -165,9 +165,7 @@ Leader key: `Space`.
 | [telescope.nvim](https://github.com/nvim-telescope/telescope.nvim)                       | Fuzzy finder.                                                             |
 | [telescope-zf-native.nvim](https://github.com/natecraddock/telescope-zf-native.nvim)     | A faster sorting algorithm for telescope.                                 |
 | [nvim-treesitter](https://github.com/nvim-treesitter/nvim-treesitter)                    | Configures treesitter parsers. Provides modules to manipulate code.       |
-| [lsp-zero.nvim](https://github.com/VonHeikemen/lsp-zero.nvim)                            | Bundles the boilerplate code needed to configure lspconfig and nvim-cmp.  |
 | [nvim-lspconfig](https://github.com/neovim/nvim-lspconfig)                               | Quickstart configs for Neovim's LSP client.                               |
 | [nvim-cmp](https://github.com/hrsh7th/nvim-cmp)                                          | Autocompletion engine.                                                    |
 | [cmp-nvim-lsp](https://github.com/hrsh7th/cmp-nvim-lsp)                                  | nvim-cmp source. Show suggestions based on LSP servers queries.           |
 | [cmp-buffer](https://github.com/hrsh7th/cmp-buffer)                                      | nvim-cmp source. Suggest words in the current buffer.                     |
-| [LuaSnip](https://github.com/L3MON4D3/LuaSnip)                                           | Snippet engine.                                                           |
