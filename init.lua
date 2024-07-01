@@ -32,7 +32,7 @@ vim.keymap.set({'n', 'x', 'o'}, 'gp', '"+p', {desc = 'Paste clipboard content'})
 local lazy = {}
 
 function lazy.install(path)
-  if not vim.loop.fs_stat(path) then
+  if not vim.uv.fs_stat(path) then
     print('Installing lazy.nvim....')
     vim.fn.system({
       'git',
@@ -59,7 +59,7 @@ function lazy.setup(plugins)
   vim.g.plugins_ready = true
 end
 
-lazy.path = vim.fn.stdpath('data') .. '/lazy/lazy.nvim'
+lazy.path = vim.fs.joinpath(vim.fn.stdpath('data'), 'lazy', 'lazy.nvim')
 lazy.opts = {}
 
 -- Learn more about lazy.nvim
@@ -173,8 +173,8 @@ cmp.setup({
 
 local lspconfig = require('lspconfig')
 
--- Add nvim-cmp's capabilities settings to every language server
--- that you setup with lspconfig
+-- Adds nvim-cmp's capabilities settings to
+-- every language server setup with lspconfig
 local extend_lspconfig = function(config, user_config)
   local custom_capabilities = vim.tbl_get(user_config, 'capabilities')
   local cmp_capabilities = require('cmp_nvim_lsp').default_capabilities()
@@ -187,7 +187,7 @@ local extend_lspconfig = function(config, user_config)
   )
 end
 
--- Add the extend_lspconfig function to lspconfig seutp
+-- Add the extend_lspconfig function to lspconfig's setup
 lspconfig.util.on_setup = lspconfig.util.add_hook_after(
   lspconfig.util.on_setup,
   extend_lspconfig
@@ -211,10 +211,10 @@ vim.api.nvim_create_autocmd('LspAttach', {
   end,
 })
 
--- These are just examples. Replace them with the language
--- servers you have installed in your system.
 -- List of compatible language servers is here:
 -- https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md
+-- These are just examples. Replace them with the language
+-- servers you have installed in your system.
 require('lspconfig').gleam.setup({})
 require('lspconfig').ocamllsp.setup({})
 
