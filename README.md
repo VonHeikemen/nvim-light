@@ -78,6 +78,15 @@ For example, if you installed the typescript language server you need to add thi
 require('lspconfig').tsserver.setup({})
 ```
 
+If you install the language server for lua, add this:
+
+```lua
+require('lspconfig').lua_ls.setup({})
+```
+
+> [!TIP]
+> Copy the content of [.luarc.json of this github repository](https://github.com/VonHeikemen/nvim-light/blob/main/init.lua) into your own `.luarc.json`. This file should be located next to your `init.lua`. With it the language server for lua will provide basic support for Neovim's lua api.
+
 ## About syntax highlight
 
 To get a more accurate syntax highlight for your favorite language you need to download something called a "treesitter parser". These will be downloaded automatically by the plugin [nvim-treesitter](https://github.com/nvim-treesitter/nvim-treesitter).
