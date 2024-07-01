@@ -35,7 +35,7 @@ If you experience performance issues with the plugin `Telescope` then you might 
 
   This will show you the path of your `init.lua`
 
-* Copy the content of `init.lua` in this repository into your own `init.lua`.
+* Copy the content of [init.lua of this github repository](https://github.com/VonHeikemen/nvim-light/blob/main/init.lua) into your own `init.lua`.
 
 * Open Neovim, use the command `nvim` in your terminal. When Neovim starts all plugins will be downloaded automatically.
 
