@@ -85,7 +85,7 @@ require('lspconfig').lua_ls.setup({})
 ```
 
 > [!TIP]
-> Copy the content of [.luarc.json of this github repository](https://github.com/VonHeikemen/nvim-light/blob/main/init.lua) into your own `.luarc.json`. This file should be located next to your `init.lua`. With it the language server for lua will provide basic support for Neovim's lua api.
+> Copy the content of [.luarc.json of this github repository](https://github.com/VonHeikemen/nvim-light/blob/main/.luarc.json) into your own `.luarc.json`. This file should be located next to your `init.lua`. With it the language server for lua will provide basic support for Neovim's lua api.
 
 ## About syntax highlight
 
