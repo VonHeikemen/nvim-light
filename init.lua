@@ -174,23 +174,11 @@ cmp.setup({
 local lspconfig = require('lspconfig')
 
 -- Adds nvim-cmp's capabilities settings to
--- every language server setup with lspconfig
-local extend_lspconfig = function(config, user_config)
-  local custom_capabilities = vim.tbl_get(user_config, 'capabilities')
-  local cmp_capabilities = require('cmp_nvim_lsp').default_capabilities()
-
-  config.capabilities = vim.tbl_deep_extend(
-    'force',
-    config.capabilities,
-    cmp_capabilities,
-    custom_capabilities or {}
-  )
-end
-
--- Add the extend_lspconfig function to lspconfig's setup
-lspconfig.util.on_setup = lspconfig.util.add_hook_after(
-  lspconfig.util.on_setup,
-  extend_lspconfig
+-- lspconfig's default config
+lspconfig.util.default_config.capabilities = vim.tbl_deep_extend(
+  'force',
+  lspconfig.util.default_config.capabilities,
+  require('cmp_nvim_lsp').default_capabilities()
 )
 
 vim.api.nvim_create_autocmd('LspAttach', {
