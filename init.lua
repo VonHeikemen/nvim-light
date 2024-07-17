@@ -110,7 +110,10 @@ require('nvim-treesitter.configs').setup({
 })
 
 -- See :help which-key.nvim-which-key-setup
-require('which-key').setup({})
+require('which-key').setup({
+  icons = { mappings = false, },
+})
+
 require('which-key').add({
   {'<leader>f', group = 'Fuzzy Find'},
   {'<leader>b', group = 'Buffer'},
