@@ -109,11 +109,11 @@ require('nvim-treesitter.configs').setup({
   ensure_installed = {'lua', 'vim', 'vimdoc', 'json'},
 })
 
--- See :help which-key.nvim-which-key-configuration
+-- See :help which-key.nvim-which-key-setup
 require('which-key').setup({})
-require('which-key').register({
-  ['<leader>f'] = {name = 'Fuzzy Find', _ = 'which_key_ignore'},
-  ['<leader>b'] = {name = 'Buffer', _ = 'which_key_ignore'},
+require('which-key').add({
+  {'<leader>f', group = 'Fuzzy Find'},
+  {'<leader>b', group = 'Buffer'},
 })
 
 -- See :help MiniAi-textobject-builtin
