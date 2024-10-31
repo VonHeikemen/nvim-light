@@ -68,14 +68,14 @@ Next step is to get familiar with Neovim's lua api, so you can create your own k
 
 They are external programs that provide IDE-like features to Neovim. If you want to know more about language servers watch this wonderful 5 minutes video: [LSP explained](https://www.youtube.com/watch?v=LaS32vctfOY).
 
-To know what language servers are supported you need to go to nvim-lspconfig's documentation, in [server_configuration.md](https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md) you'll find links and instruction on how to install them.
+To know what language servers are supported you need to go to nvim-lspconfig's documentation, in [configs.md](https://github.com/neovim/nvim-lspconfig/blob/master/doc/configs.md) you'll find links and instruction on how to install them.
 
 Once you have a language server available in your system you need to add its setup function to your config.
 
 For example, if you installed the typescript language server you need to add this.
 
 ```lua
-require('lspconfig').tsserver.setup({})
+require('lspconfig').ts_ls.setup({})
 ```
 
 If you install the language server for lua, add this:

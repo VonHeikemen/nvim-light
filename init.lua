@@ -203,7 +203,7 @@ vim.api.nvim_create_autocmd('LspAttach', {
 })
 
 -- List of compatible language servers is here:
--- https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md
+-- https://github.com/neovim/nvim-lspconfig/blob/master/doc/configs.md
 -- These are just examples. Replace them with the language
 -- servers you have installed in your system.
 require('lspconfig').gleam.setup({})
