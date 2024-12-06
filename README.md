@@ -15,8 +15,6 @@ Lightweight configuration focused on providing "basic features" with little boil
 
 If you need a `C` compiler then `zig` is the easiest to install. It's available on `winget`, `scoop` and `chocolatey`. You can also find some links in the [zig download page](https://ziglang.org/download/). 
 
-If you experience performance issues with the plugin `Telescope` then you might want to try an alternative like [fzf.lua](https://github.com/ibhagwan/fzf-lua).
-
 ## Installation
 
 * Backup your existing configuration if you have one.
@@ -119,14 +117,15 @@ Leader key: `Space`.
 | Normal   | `gp`              | Paste text from clipboard.                                              |
 | Normal   | `K`               | Displays hover information about the symbol under the cursor.           |
 | Normal   | `gd`              | Jump to the definition.                                                 |
-| Normal   | `gD`              | Jump to declaration.                                                    |
-| Normal   | `gi`              | Lists all the implementations for the symbol under the cursor.          |
-| Normal   | `go`              | Jumps to the definition of the type symbol                              |
-| Normal   | `gr`              | Lists all the references.                                               |
-| Normal   | `gs`              | Displays a function's signature information.                            |
-| Normal   | `<F2>`            | Renames all references to the symbol under the cursor.                  |
-| Normal   | `<F3>`            | Format code in current buffer.                                          |
-| Normal   | `<F4>`            | Selects a code action available at the current cursor position.         |
+| Normal   | `gq`              | Format code in current buffer.                                          |
+| Normal   | `gO`              | Lists symbols in the current buffer.                                    |
+| Normal   | `<C-s>`           | Displays a function's signature information.                            |
+| Normal   | `gri`             | Lists all the implementations for the symbol under the cursor.          |
+| Normal   | `grr`             | Lists all the references.                                               |
+| Normal   | `grn`             | Renames all references to the symbol under the cursor.                  |
+| Normal   | `gra`             | Selects a code action available at the current cursor position.         |
+| Normal   | `grd`             | Jump to declaration.                                                    |
+| Normal   | `grt`             | Jumps to the definition of the type symbol                              |
 | Normal   | `<Ctrl-w>d`       | Show diagnostics in a floating window.                                  |
 | Normal   | `[d`              | Move to the previous diagnostic.                                        |
 | Normal   | `]d`              | Move to the next diagnostic.                                            |
@@ -137,7 +136,6 @@ Leader key: `Space`.
 | Normal   | `sr`              | Surround replace.                                                       |
 | Normal   | `sf`              | Find surrounding.                                                       |
 | Normal   | `<leader>e`       | Toggle file explorer.                                                   |
-| Normal   | `<leader>E`       | Open file explorer in current folder.                                   |
 | Normal   | `<leader>bc`      | Close current buffer and preserve window layout.                        |
 | Normal   | `<leader>?`       | Search oldfiles history.                                                |
 | Normal   | `<leader><space>` | Search open buffers.                                                    |
@@ -148,18 +146,15 @@ Leader key: `Space`.
 
 ### Autocomplete keybindings
 
-| Mode   | Key            | Action                                    |
-| ---    | ---            | ---                                       |
-| Insert | `<Ctrl-y>`     | Confirm completion.                       |
-| Insert | `<Enter>`      | Confirm completion.                       |
-| Insert | `<Ctrl-e>`     | Cancel completion.                        |
-| Insert | `<Ctrl-p>`     | Move to previous item.                    |
-| Insert | `<Ctrl-n>`     | Move to next item.                        |
-| Insert | `<Ctrl-u>`     | Scroll up in documentation window.        |
-| Insert | `<Ctrl-d>`     | Scroll down in documentation window.      |
-| Insert | `<Ctrl-b>`     | Jump to the previous snippet placeholder. |
-| Insert | `<Ctrl-f>`     | Jump to the next snippet placeholder.     |
-| Insert | `<Ctrl-Space>` | Trigger completion.                       |
+| Mode   | Key            | Action                                                          |
+| ---    | ---            | ---                                                             |
+| Insert | `<Up>`         | Move to previous item.                                          |
+| Insert | `<Down>`       | Move to next item.                                              |
+| Insert | `<Ctrl-p>`     | Move to previous item and insert content.                       |
+| Insert | `<Ctrl-n>`     | Move to next item and insert content.                           |
+| Insert | `<Ctrl-y>`     | Confirm completion.                                             |
+| Insert | `<Enter>`      | Confirm completion if item was selected with Up or Down arrows. |
+| Insert | `<Ctrl-e>`     | Cancel completion.                                              |
 
 ## Plugin list
 
@@ -168,13 +163,7 @@ Leader key: `Space`.
 | [lazy.nvim](https://github.com/folke/lazy.nvim)                                          | Plugin manager.                                                           |
 | [tokyonight.nvim](https://github.com/folke/tokyonight.nvim)                              | Collection of colorscheme for Neovim.                                     |
 | [which-key.nvim](https://github.com/folke/which-key.nvim)                                | Provide clues for keymaps.                                                |
-| [lualine.nvim](https://github.com/nvim-lualine/lualine.nvim)                             | Pretty statusline.                                                        |
 | [mini.nvim](https://github.com/echasnovski/mini.nvim)                                    | Collection of independent lua modules that enhance Neovim's features.     |
-| [plenary.nvim](https://github.com/nvim-lua/plenary.nvim)                                 | Collection of lua modules. It helps plugin authors solve common problems. |
-| [telescope.nvim](https://github.com/nvim-telescope/telescope.nvim)                       | Fuzzy finder.                                                             |
-| [telescope-zf-native.nvim](https://github.com/natecraddock/telescope-zf-native.nvim)     | A faster sorting algorithm for telescope.                                 |
 | [nvim-treesitter](https://github.com/nvim-treesitter/nvim-treesitter)                    | Configures treesitter parsers. Provides modules to manipulate code.       |
 | [nvim-lspconfig](https://github.com/neovim/nvim-lspconfig)                               | Quickstart configs for Neovim's LSP client.                               |
-| [nvim-cmp](https://github.com/hrsh7th/nvim-cmp)                                          | Autocompletion engine.                                                    |
-| [cmp-nvim-lsp](https://github.com/hrsh7th/cmp-nvim-lsp)                                  | nvim-cmp source. Show suggestions based on LSP servers queries.           |
-| [cmp-buffer](https://github.com/hrsh7th/cmp-buffer)                                      | nvim-cmp source. Suggest words in the current buffer.                     |
+

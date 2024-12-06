@@ -6,20 +6,20 @@
 -- https://neovim.io/doc/user/lua-guide.html
 -- https://vonheikemen.github.io/devlog/tools/build-your-first-lua-config-for-neovim/
 
-vim.opt.number = true
-vim.opt.ignorecase = true
-vim.opt.smartcase = true
-vim.opt.hlsearch = false
-vim.opt.tabstop = 2
-vim.opt.shiftwidth = 2
-vim.opt.showmode = false
-vim.opt.termguicolors = true
-vim.opt.updatetime = 250
-vim.opt.timeoutlen = 300
-vim.opt.signcolumn = 'yes'
+vim.o.number = true
+vim.o.ignorecase = true
+vim.o.smartcase = true
+vim.o.hlsearch = false
+vim.o.tabstop = 2
+vim.o.shiftwidth = 2
+vim.o.showmode = false
+vim.o.termguicolors = true
+vim.o.updatetime = 250
+vim.o.timeoutlen = 300
+vim.o.signcolumn = 'yes'
 
 -- Space as leader key
-vim.g.mapleader = ' '
+vim.g.mapleader = vim.keycode('<Space>')
 
 -- Basic clipboard interaction
 vim.keymap.set({'n', 'x', 'o'}, 'gy', '"+y', {desc = 'Copy to clipboard'})
@@ -59,7 +59,7 @@ function lazy.setup(plugins)
   vim.g.plugins_ready = true
 end
 
-lazy.path = vim.fs.joinpath(vim.fn.stdpath('data'), 'lazy', 'lazy.nvim')
+lazy.path = vim.fs.joinpath(vim.fn.stdpath('data') --[[@as string]], 'lazy', 'lazy.nvim')
 lazy.opts = {}
 
 -- Learn more about lazy.nvim
@@ -67,16 +67,9 @@ lazy.opts = {}
 lazy.setup({
   {'folke/tokyonight.nvim'},
   {'folke/which-key.nvim'},
-  {'nvim-lualine/lualine.nvim'},
-  {'nvim-lua/plenary.nvim', build = false},
-  {'nvim-treesitter/nvim-treesitter'},
-  {'nvim-telescope/telescope.nvim', branch = '0.1.x', build = false},
-  {'natecraddock/telescope-zf-native.nvim', build = false},
-  {'echasnovski/mini.nvim', branch = 'stable'},
   {'neovim/nvim-lspconfig'},
-  {'hrsh7th/nvim-cmp'},
-  {'hrsh7th/cmp-nvim-lsp'},
-  {'hrsh7th/cmp-buffer'},
+  {'nvim-treesitter/nvim-treesitter'},
+  {'echasnovski/mini.nvim', branch = 'stable'},
 })
 
 -- ========================================================================== --
@@ -85,39 +78,34 @@ lazy.setup({
 
 vim.cmd.colorscheme('tokyonight')
 
-vim.g.netrw_banner = 0
-vim.g.netrw_winsize = 30
-
--- See :help netrw-browse-maps
-vim.keymap.set('n', '<leader>e', '<cmd>Lexplore<cr>', {desc = 'Toggle file explorer'})
-vim.keymap.set('n', '<leader>E', '<cmd>Lexplore %:p:h<cr>', {desc = 'Open file explorer in current file'})
-
--- See :help lualine.txt
-require('lualine').setup({
-  options = {
-    theme = 'tokyonight',
-    icons_enabled = false,
-    component_separators = '|',
-    section_separators = '',
-  },
-})
-
 -- See :help nvim-treesitter-modules
 require('nvim-treesitter.configs').setup({
-  highlight = { enable = true, },
+  highlight = {enable = true,},
   auto_install = true,
   ensure_installed = {'lua', 'vim', 'vimdoc', 'json'},
 })
 
 -- See :help which-key.nvim-which-key-setup
 require('which-key').setup({
-  icons = { mappings = false, },
+  icons = {
+    mappings = false,
+    keys = {
+      Space = 'Space',
+      Esc = 'Esc',
+      BS = 'Backspace',
+      C = 'Ctrl-',
+    },
+  },
 })
 
 require('which-key').add({
   {'<leader>f', group = 'Fuzzy Find'},
   {'<leader>b', group = 'Buffer'},
 })
+
+-- See :help MiniIcons.config
+-- Change style to 'glyph' if you have a font with fancy icons
+require('mini.icons').setup({style = 'ascii'})
 
 -- See :help MiniAi-textobject-builtin
 require('mini.ai').setup({n_lines = 500})
@@ -128,9 +116,6 @@ require('mini.comment').setup({})
 -- See :help MiniSurround.config
 require('mini.surround').setup({})
 
--- See :help MiniBufremove.config
-require('mini.bufremove').setup({})
-
 -- See :help MiniNotify.config
 require('mini.notify').setup({
   lsp_progress = {enable = false},
@@ -139,66 +124,105 @@ require('mini.notify').setup({
 -- See :help MiniNotify.make_notify()
 vim.notify = require('mini.notify').make_notify({})
 
+-- See :help MiniBufremove.config
+require('mini.bufremove').setup({})
+
 -- Close buffer and preserve window layout
 vim.keymap.set('n', '<leader>bc', '<cmd>lua pcall(MiniBufremove.delete)<cr>', {desc = 'Close buffer'})
 
--- See :help telescope.builtin
-vim.keymap.set('n', '<leader>?', '<cmd>Telescope oldfiles<cr>', {desc = 'Search file history'})
-vim.keymap.set('n', '<leader><space>', '<cmd>Telescope buffers<cr>', {desc = 'Search open files'})
-vim.keymap.set('n', '<leader>ff', '<cmd>Telescope find_files<cr>', {desc = 'Search all files'})
-vim.keymap.set('n', '<leader>fg', '<cmd>Telescope live_grep<cr>', {desc = 'Search in project'})
-vim.keymap.set('n', '<leader>fd', '<cmd>Telescope diagnostics<cr>', {desc = 'Search diagnostics'})
-vim.keymap.set('n', '<leader>fs', '<cmd>Telescope current_buffer_fuzzy_find<cr>', {desc = 'Buffer local search'})
+-- See :help MiniFiles.config
+local mini_files = require('mini.files')
+mini_files.setup({})
 
-require('telescope').load_extension('zf-native')
+-- Toggle file explorer
+-- See :help MiniFiles-navigation
+vim.keymap.set('n', '<leader>e', function()
+  if mini_files.close() then
+    return
+  end
 
-local cmp = require('cmp')
+  mini_files.open()
+end, {desc = 'File explorer'})
 
--- See :help cmp-config
-cmp.setup({
-  sources = {
-    {name = 'nvim_lsp'},
-    {name = 'buffer'},
-  },
-  mapping = cmp.mapping.preset.insert({
-    ['<CR>'] = cmp.mapping.confirm({select = false}),
-    ['<C-Space>'] = cmp.mapping.complete(),
-    ['<C-u>'] = cmp.mapping.scroll_docs(-4),
-    ['<C-d>'] = cmp.mapping.scroll_docs(4),
-  }),
-  snippet = {
-    expand = function(args)
-      vim.snippet.expand(args.body)
-    end,
-  },
+-- See :help MiniPick.config
+require('mini.pick').setup({})
+
+-- See available pickers
+-- :help MiniPick.builtin
+-- :help MiniExtra.pickers
+vim.keymap.set('n', '<leader>?', '<cmd>Pick oldfiles<cr>', {desc = 'Search file history'})
+vim.keymap.set('n', '<leader><space>', '<cmd>Pick buffers<cr>', {desc = 'Search open files'})
+vim.keymap.set('n', '<leader>ff', '<cmd>Pick files<cr>', {desc = 'Search all files'})
+vim.keymap.set('n', '<leader>fg', '<cmd>Pick grep_live<cr>', {desc = 'Search in project'})
+vim.keymap.set('n', '<leader>fd', '<cmd>Pick diagnostic<cr>', {desc = 'Search diagnostics'})
+vim.keymap.set('n', '<leader>fs', '<cmd>Pick buf_lines<cr>', {desc = 'Buffer local search'})
+
+-- See :help MiniStatusline-example-content
+local mini_statusline = require('mini.statusline')
+
+local function statusline()
+  local mode, mode_hl = mini_statusline.section_mode({trunc_width = 120})
+  local diagnostics = mini_statusline.section_diagnostics({trunc_width = 75})
+  local lsp = mini_statusline.section_lsp({icon = 'λ', trunc_width = 75})
+  local filename = mini_statusline.section_filename({trunc_width = 140})
+  local percent = '%2p%%'
+  local location = '%3l:%-2c'
+
+  return mini_statusline.combine_groups({
+    {hl = mode_hl,                  strings = {mode}},
+    {hl = 'MiniStatuslineDevinfo',  strings = {diagnostics, lsp}},
+    '%<', -- Mark general truncate point
+    {hl = 'MiniStatuslineFilename', strings = {filename}},
+    '%=', -- End left alignment
+    {hl = 'MiniStatuslineFilename', strings = {'%{&filetype}'}},
+    {hl = 'MiniStatuslineFileinfo', strings = {percent}},
+    {hl = mode_hl,                  strings = {location}},
+  })
+end
+
+-- See :help MiniStatusline.config
+mini_statusline.setup({
+  content = {active = statusline},
 })
 
+-- See :help MiniExtra
+require('mini.extra').setup({})
 
-local lspconfig = require('lspconfig')
+-- See :help MiniCompletion.config
+require('mini.completion').setup({})
 
--- Adds nvim-cmp's capabilities settings to
--- lspconfig's default config
-lspconfig.util.default_config.capabilities = vim.tbl_deep_extend(
-  'force',
-  lspconfig.util.default_config.capabilities,
-  require('cmp_nvim_lsp').default_capabilities()
-)
+-- Neovim v0.11 is still under development
+local is_v11 = vim.fn.has('nvim-0.11') == 1
 
 vim.api.nvim_create_autocmd('LspAttach', {
   desc = 'LSP actions',
   callback = function(event)
     local opts = {buffer = event.buf}
 
+    -- These keymaps will become defaults after Neovim v0.11
+    -- I've added them here for backwards compatibility
+    vim.keymap.set('n', 'grr', '<cmd>lua vim.lsp.buf.references()<cr>', opts)
+    vim.keymap.set('n', 'gri', '<cmd>lua vim.lsp.buf.implementation()<cr>', opts)
+    vim.keymap.set('n', 'grn', '<cmd>lua vim.lsp.buf.rename()<cr>', opts)
+    vim.keymap.set('n', 'gra', '<cmd>lua vim.lsp.buf.code_action()<cr>', opts)
+    vim.keymap.set('n', 'gO', '<cmd>lua vim.lsp.buf.document_symbol()<cr>', opts)
+    vim.keymap.set({'i', 's'}, '<C-s>', '<cmd>lua vim.lsp.buf.signature_help()<cr>', opts)
+    vim.keymap.set({'n', 'x'}, 'gq', '<cmd>lua vim.lsp.buf.format({async = true})<cr>', opts)
+
+    -- These are custom keymaps
     vim.keymap.set('n', 'K', '<cmd>lua vim.lsp.buf.hover()<cr>', opts)
     vim.keymap.set('n', 'gd', '<cmd>lua vim.lsp.buf.definition()<cr>', opts)
-    vim.keymap.set('n', 'gD', '<cmd>lua vim.lsp.buf.declaration()<cr>', opts)
-    vim.keymap.set('n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<cr>', opts)
-    vim.keymap.set('n', 'go', '<cmd>lua vim.lsp.buf.type_definition()<cr>', opts)
-    vim.keymap.set('n', 'gr', '<cmd>lua vim.lsp.buf.references()<cr>', opts)
-    vim.keymap.set('n', 'gs', '<cmd>lua vim.lsp.buf.signature_help()<cr>', opts)
-    vim.keymap.set('n', '<F2>', '<cmd>lua vim.lsp.buf.rename()<cr>', opts)
-    vim.keymap.set({'n', 'x'}, '<F3>', '<cmd>lua vim.lsp.buf.format({async = true})<cr>', opts)
-    vim.keymap.set('n', '<F4>', '<cmd>lua vim.lsp.buf.code_action()<cr>', opts)
+    vim.keymap.set('n', 'grt', '<cmd>lua vim.lsp.buf.type_definition()<cr>', opts)
+    vim.keymap.set('n', 'grd', '<cmd>lua vim.lsp.buf.declaration()<cr>', opts)
+
+    local client_id = vim.tbl_get(event, 'data', 'client_id')
+    local client = client_id and vim.lsp.get_client_by_id(client_id)
+
+    -- enable completion side effects (if possible)
+    -- note is only available in neovim v0.11 or greater
+    if is_v11 and client and client.supports_method('textDocument/completion') then
+      vim.lsp.completion.enable(true, client_id, event.buf, {})
+    end
   end,
 })
 
