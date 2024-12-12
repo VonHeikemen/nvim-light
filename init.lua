@@ -25,6 +25,10 @@ vim.g.mapleader = vim.keycode('<Space>')
 vim.keymap.set({'n', 'x', 'o'}, 'gy', '"+y', {desc = 'Copy to clipboard'})
 vim.keymap.set({'n', 'x', 'o'}, 'gp', '"+p', {desc = 'Paste clipboard content'})
 
+-- Neovim v0.11 is still under development
+-- we will use this to enable certain features
+local is_v11 = vim.fn.has('nvim-0.11') == 1
+
 -- ========================================================================== --
 -- ==                               PLUGINS                                == --
 -- ========================================================================== --
@@ -62,14 +66,15 @@ end
 lazy.path = vim.fs.joinpath(vim.fn.stdpath('data') --[[@as string]], 'lazy', 'lazy.nvim')
 lazy.opts = {}
 
--- Learn more about lazy.nvim
+-- Learn more about lazy.nvim 
+-- (plugin configuration, how to split your config in multiple files)
 -- https://dev.to/vonheikemen/lazynvim-plugin-configuration-3opi
 lazy.setup({
   {'folke/tokyonight.nvim'},
   {'folke/which-key.nvim'},
   {'neovim/nvim-lspconfig'},
   {'nvim-treesitter/nvim-treesitter'},
-  {'echasnovski/mini.nvim', branch = 'stable'},
+  {'echasnovski/mini.nvim', branch = 'main'},
 })
 
 -- ========================================================================== --
@@ -190,9 +195,6 @@ require('mini.extra').setup({})
 
 -- See :help MiniCompletion.config
 require('mini.completion').setup({})
-
--- Neovim v0.11 is still under development
-local is_v11 = vim.fn.has('nvim-0.11') == 1
 
 vim.api.nvim_create_autocmd('LspAttach', {
   desc = 'LSP actions',
