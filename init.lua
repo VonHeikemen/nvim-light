@@ -19,15 +19,11 @@ vim.o.timeoutlen = 300
 vim.o.signcolumn = 'yes'
 
 -- Space as leader key
-vim.g.mapleader = vim.keycode('<Space>')
+vim.g.mapleader = ' '
 
 -- Basic clipboard interaction
 vim.keymap.set({'n', 'x', 'o'}, 'gy', '"+y', {desc = 'Copy to clipboard'})
 vim.keymap.set({'n', 'x', 'o'}, 'gp', '"+p', {desc = 'Paste clipboard content'})
-
--- Neovim v0.11 is still under development
--- we will use this to enable certain features
-local is_v11 = vim.fn.has('nvim-0.11') == 1
 
 -- ========================================================================== --
 -- ==                               PLUGINS                                == --
@@ -36,7 +32,8 @@ local is_v11 = vim.fn.has('nvim-0.11') == 1
 local lazy = {}
 
 function lazy.install(path)
-  if not vim.uv.fs_stat(path) then
+  local uv = vim.uv or vim.loop
+  if not uv.fs_stat(path) then
     print('Installing lazy.nvim....')
     vim.fn.system({
       'git',
@@ -63,7 +60,12 @@ function lazy.setup(plugins)
   vim.g.plugins_ready = true
 end
 
-lazy.path = vim.fs.joinpath(vim.fn.stdpath('data') --[[@as string]], 'lazy', 'lazy.nvim')
+lazy.path = table.concat({
+  vim.fn.stdpath('data') --[[@as string]],
+  'lazy',
+  'lazy.nvim'
+}, '/')
+
 lazy.opts = {}
 
 -- Learn more about lazy.nvim 
@@ -168,7 +170,7 @@ local mini_statusline = require('mini.statusline')
 local function statusline()
   local mode, mode_hl = mini_statusline.section_mode({trunc_width = 120})
   local diagnostics = mini_statusline.section_diagnostics({trunc_width = 75})
-  local lsp = mini_statusline.section_lsp({icon = 'λ', trunc_width = 75})
+  local lsp = mini_statusline.section_lsp({icon = 'LSP', trunc_width = 75})
   local filename = mini_statusline.section_filename({trunc_width = 140})
   local percent = '%2p%%'
   local location = '%3l:%-2c'
@@ -193,6 +195,9 @@ mini_statusline.setup({
 -- See :help MiniExtra
 require('mini.extra').setup({})
 
+-- See :help MiniSnippets.config
+require('mini.snippets').setup({})
+
 -- See :help MiniCompletion.config
 require('mini.completion').setup({})
 
@@ -209,22 +214,13 @@ vim.api.nvim_create_autocmd('LspAttach', {
     vim.keymap.set('n', 'gra', '<cmd>lua vim.lsp.buf.code_action()<cr>', opts)
     vim.keymap.set('n', 'gO', '<cmd>lua vim.lsp.buf.document_symbol()<cr>', opts)
     vim.keymap.set({'i', 's'}, '<C-s>', '<cmd>lua vim.lsp.buf.signature_help()<cr>', opts)
-    vim.keymap.set({'n', 'x'}, 'gq', '<cmd>lua vim.lsp.buf.format({async = true})<cr>', opts)
 
     -- These are custom keymaps
     vim.keymap.set('n', 'K', '<cmd>lua vim.lsp.buf.hover()<cr>', opts)
     vim.keymap.set('n', 'gd', '<cmd>lua vim.lsp.buf.definition()<cr>', opts)
     vim.keymap.set('n', 'grt', '<cmd>lua vim.lsp.buf.type_definition()<cr>', opts)
     vim.keymap.set('n', 'grd', '<cmd>lua vim.lsp.buf.declaration()<cr>', opts)
-
-    local client_id = vim.tbl_get(event, 'data', 'client_id')
-    local client = client_id and vim.lsp.get_client_by_id(client_id)
-
-    -- enable completion side effects (if possible)
-    -- note is only available in neovim v0.11 or greater
-    if is_v11 and client and client.supports_method('textDocument/completion') then
-      vim.lsp.completion.enable(true, client_id, event.buf, {})
-    end
+    vim.keymap.set({'n', 'x'}, 'gq', '<cmd>lua vim.lsp.buf.format({async = true})<cr>', opts)
   end,
 })
 

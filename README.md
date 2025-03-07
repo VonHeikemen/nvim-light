@@ -4,7 +4,7 @@ Lightweight configuration focused on providing "basic features" with little boil
 
 ## Requirements
 
-* Neovim v0.10 or greater.
+* Neovim v0.9.5 or greater.
 * git.
 * A `C` compiler. Can be `gcc`, `tcc` or `zig`.
 * A [language server](#about-language-servers). Required to actually enable the "IDE-like" features.
