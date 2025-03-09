@@ -75,8 +75,8 @@ lazy.setup({
   {'folke/tokyonight.nvim'},
   {'folke/which-key.nvim'},
   {'neovim/nvim-lspconfig'},
-  {'nvim-treesitter/nvim-treesitter'},
   {'echasnovski/mini.nvim', branch = 'main'},
+  {'nvim-treesitter/nvim-treesitter', build = ':TSUpdate'},
 })
 
 -- ========================================================================== --
