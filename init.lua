@@ -68,15 +68,21 @@ lazy.path = table.concat({
 
 lazy.opts = {}
 
--- Learn more about lazy.nvim 
+-- Learn more about lazy.nvim
 -- (plugin configuration, how to split your config in multiple files)
 -- https://dev.to/vonheikemen/lazynvim-plugin-configuration-3opi
 lazy.setup({
   {'folke/tokyonight.nvim'},
   {'folke/which-key.nvim'},
-  {'neovim/nvim-lspconfig'},
   {'echasnovski/mini.nvim', branch = 'main'},
   {'nvim-treesitter/nvim-treesitter', build = ':TSUpdate'},
+  (
+    -- if using nvim v0.9 pin lspconfig
+    -- to the last compatible version
+    vim.fn.has('nvim-0.10') == 1
+    and {'neovim/nvim-lspconfig'}
+    or {'neovim/nvim-lspconfig', tag = 'v1.8.0', pin = true}
+  ),
 })
 
 -- ========================================================================== --
