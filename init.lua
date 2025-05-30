@@ -71,19 +71,31 @@ lazy.opts = {}
 -- Learn more about lazy.nvim
 -- (plugin configuration, how to split your config in multiple files)
 -- https://dev.to/vonheikemen/lazynvim-plugin-configuration-3opi
-lazy.setup({
+lazy.plugins = {
   {'folke/tokyonight.nvim'},
   {'folke/which-key.nvim'},
+  {'neovim/nvim-lspconfig'},
   {'echasnovski/mini.nvim', branch = 'main'},
-  {'nvim-treesitter/nvim-treesitter', build = ':TSUpdate'},
-  (
-    -- if using nvim v0.9 pin lspconfig
-    -- to the last compatible version
-    vim.fn.has('nvim-0.10') == 1
-    and {'neovim/nvim-lspconfig'}
-    or {'neovim/nvim-lspconfig', tag = 'v1.8.0', pin = true}
-  ),
-})
+  {'nvim-treesitter/nvim-treesitter', build = ':TSUpdate', branch = 'main'},
+}
+
+-- The following plugins no longer support Neovim v0.10 or lower.
+-- They need to be pinned that is compatible.
+if vim.fn.has('nvim-0.11') == 0 then
+  vim.list_extend(lazy.plugins, {
+    {'neovim/nvim-lspconfig', pin = true, tag = 'v1.8.0'},
+    {
+      'nvim-treesitter/nvim-treesitter',
+      branch = 'master',
+      main = 'nvim-treesitter.configs',
+      opts = {
+        highlight = {enable = true},
+      },
+    },
+  })
+end
+
+lazy.setup(lazy.plugins)
 
 -- ========================================================================== --
 -- ==                         PLUGIN CONFIGURATION                         == --
@@ -91,12 +103,21 @@ lazy.setup({
 
 vim.cmd.colorscheme('tokyonight')
 
--- See :help nvim-treesitter-modules
-require('nvim-treesitter.configs').setup({
-  highlight = {enable = true,},
-  auto_install = true,
-  ensure_installed = {'lua', 'vim', 'vimdoc', 'json'},
-})
+-- Newer versions of nvim-treesitter no longer provide
+-- fancy modules that enable features for us.
+-- On Neovim v0.11 we need to enable each feature manually.
+-- See :help nvim-treesitter-quickstart
+if vim.fn.has('nvim-0.11') == 1 then
+  local filetypes = {'lua'}
+
+  vim.api.nvim_create_autocmd('FileType', {
+    pattern = filetypes,
+    callback = function()
+      -- enable syntax highlight
+      vim.treesitter.start()
+    end,
+  })
+end
 
 -- See :help which-key.nvim-which-key-setup
 require('which-key').setup({
@@ -229,11 +250,4 @@ vim.api.nvim_create_autocmd('LspAttach', {
     vim.keymap.set({'n', 'x'}, 'gq', '<cmd>lua vim.lsp.buf.format({async = true})<cr>', opts)
   end,
 })
-
--- List of compatible language servers is here:
--- https://github.com/neovim/nvim-lspconfig/blob/master/doc/configs.md
--- These are just examples. Replace them with the language
--- servers you have installed in your system.
-require('lspconfig').gleam.setup({})
-require('lspconfig').ocamllsp.setup({})
 

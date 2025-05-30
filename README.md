@@ -6,6 +6,7 @@ Lightweight configuration focused on providing "basic features" with little boil
 
 * Neovim v0.9.5 or greater.
 * git.
+* [tree-sitter CLI](https://github.com/tree-sitter/tree-sitter).
 * A `C` compiler. Can be `gcc`, `tcc` or `zig`.
 * A [language server](#about-language-servers). Required to actually enable the "IDE-like" features.
 * (optional) [ripgrep](https://github.com/BurntSushi/ripgrep). Improves project wide search speed.
@@ -68,18 +69,18 @@ They are external programs that provide IDE-like features to Neovim. If you want
 
 To know what language servers are supported you need to go to nvim-lspconfig's documentation, in [configs.md](https://github.com/neovim/nvim-lspconfig/blob/master/doc/configs.md) you'll find links and instruction on how to install them.
 
-Once you have a language server available in your system you need to add its setup function to your config.
+Once you have a language server available in your system you need to enable it.
 
-For example, if you installed the typescript language server you need to add this.
-
-```lua
-require('lspconfig').ts_ls.setup({})
-```
-
-If you install the language server for lua, add this:
+On **Neovim v0.10** or lower you must use the "legacy setup" function.
 
 ```lua
 require('lspconfig').lua_ls.setup({})
+```
+
+On **Neovim v0.11** or greater you can use the function `vim.lsp.enable()`.
+
+```lua
+vim.lsp.enable('lua_ls')
 ```
 
 > [!TIP]
@@ -87,9 +88,23 @@ require('lspconfig').lua_ls.setup({})
 
 ## About syntax highlight
 
-To get a more accurate syntax highlight for your favorite language you need to download something called a "treesitter parser". These will be downloaded automatically by the plugin [nvim-treesitter](https://github.com/nvim-treesitter/nvim-treesitter).
+To get a more accurate syntax highlight for your favorite language you need to download something called a "treesitter parser".
 
-You can also instruct Neovim to download a treesitter parser by adding a name to the property `ensure_installed` located in the setup function of `nvim-treesitter.configs`.
+So inside Neovim execute the command `:TSInstall` and provide a list of parsers. For example:
+
+```vim
+:TSInstall lua gleam vimdoc
+```
+
+On **Neovim v0.10** or lower the syntax highlight will be enabled automatically by the plugin `nvim-treesitter`.
+
+On **Neovim v0.11** or greater you must enable the syntax highlight ourselves. On this configuration on the [line 111](https://github.com/VonHeikemen/nvim-light/blob/main/init.lua#L111) there is a variable called `filetypes`, that's the list of languages where the syntax highlight will be enabled.
+
+```lua
+local filetypes = {'lua', 'gleam', 'help'}
+```
+
+Notice that sometimes the parser and the filetype name don't match. In this example the parser `vimdoc` is for the filetype `help`.
 
 ## Learn more about the plugin manager
 
@@ -164,6 +179,6 @@ Leader key: `Space`.
 | [tokyonight.nvim](https://github.com/folke/tokyonight.nvim)                              | Collection of colorscheme for Neovim.                                     |
 | [which-key.nvim](https://github.com/folke/which-key.nvim)                                | Provide clues for keymaps.                                                |
 | [mini.nvim](https://github.com/echasnovski/mini.nvim)                                    | Collection of independent lua modules that enhance Neovim's features.     |
-| [nvim-treesitter](https://github.com/nvim-treesitter/nvim-treesitter)                    | Configures treesitter parsers. Provides modules to manipulate code.       |
+| [nvim-treesitter](https://github.com/nvim-treesitter/nvim-treesitter)                    | Configures treesitter parsers.                                            |
 | [nvim-lspconfig](https://github.com/neovim/nvim-lspconfig)                               | Quickstart configs for Neovim's LSP client.                               |
 
