@@ -80,7 +80,7 @@ lazy.plugins = {
 }
 
 -- The following plugins no longer support Neovim v0.10 or lower.
--- They need to be pinned that is compatible.
+-- They need to be pinned to a version that is compatible.
 if vim.fn.has('nvim-0.11') == 0 then
   vim.list_extend(lazy.plugins, {
     {'neovim/nvim-lspconfig', pin = true, tag = 'v1.8.0'},
