@@ -91,6 +91,7 @@ if vim.fn.has('nvim-0.11') == 0 then
       main = 'nvim-treesitter.configs',
       opts = {
         highlight = {enable = true},
+        ensure_installed = {'lua', 'vim', 'vimdoc'},
       },
     },
   })
