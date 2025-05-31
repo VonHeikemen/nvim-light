@@ -83,10 +83,11 @@ lazy.plugins = {
 -- They need to be pinned to a version that is compatible.
 if vim.fn.has('nvim-0.11') == 0 then
   vim.list_extend(lazy.plugins, {
-    {'neovim/nvim-lspconfig', pin = true, tag = 'v1.8.0'},
+    {'neovim/nvim-lspconfig', tag = 'v1.8.0', pin = true},
     {
       'nvim-treesitter/nvim-treesitter',
-      branch = 'master',
+      tag = 'v0.10.0',
+      pin = true,
       main = 'nvim-treesitter.configs',
       opts = {
         highlight = {enable = true},
