@@ -86,6 +86,8 @@ vim.lsp.enable('lua_ls')
 > [!TIP]
 > Copy the content of [.luarc.json of this github repository](https://github.com/VonHeikemen/nvim-light/blob/main/.luarc.json) into your own `.luarc.json`. This file should be located next to your `init.lua`. With it the language server for lua will provide basic support for Neovim's lua api.
 
+In this example `lua_ls` is the language server we want to enable.
+
 ## About syntax highlight
 
 To get a more accurate syntax highlight for your favorite language you need to download something called a "treesitter parser".
@@ -98,7 +100,7 @@ So inside Neovim execute the command `:TSInstall` and provide a list of parsers.
 
 On **Neovim v0.10** or lower the syntax highlight will be enabled automatically by the plugin `nvim-treesitter`.
 
-On **Neovim v0.11** or greater you must enable the syntax highlight ourselves. On this configuration on the [line 111](https://github.com/VonHeikemen/nvim-light/blob/main/init.lua#L111) there is a variable called `filetypes`, that's the list of languages where the syntax highlight will be enabled.
+On **Neovim v0.11** or greater we must enable the syntax highlight ourselves. On this configuration on the [line 111](https://github.com/VonHeikemen/nvim-light/blob/main/init.lua#L111) there is a variable called `filetypes`, that's the list of languages where the syntax highlight will be enabled.
 
 ```lua
 local filetypes = {'lua', 'gleam', 'help'}
