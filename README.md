@@ -18,12 +18,14 @@ If you need a `C` compiler then `zig` is the easiest to install. It's available 
 
 ## Installation
 
+* I recommend installing Neovim's [latest stable version](https://vonheikemen.github.io/learn-nvim/101/installation.html). Or at least Neovim v0.9.
+
 * Backup your existing configuration if you have one.
 
 * Create an `init.lua` file in your system. Use this command in your terminal if you don't know the specific location of Neovim's configuration folder.
 
   ```sh
-  nvim --headless -c 'call mkdir(stdpath("config"), "p") | exe "edit" stdpath("config") . "/init.lua" | write | quit'
+  nvim --headless -c 'exe "write ++p" stdpath("config") . "/init.lua"' -c 'quit'
   ```
 
   To check the file was created you can use this command.
@@ -46,15 +48,18 @@ Neovim comes with an interactive tutorial that teaches the basics of the editor.
 nvim +Tutor
 ```
 
-Note there is also a book inside Neovim's documentation, this is called the user manual. You can find it online here:
+I've also created a documentation site aimed at teaching the basic features of Neovim. Note that it is mostly about how to use Neovim as a text editor without plugins, but there is still some valuable information there:
 
-* [Neovim online docs: user manual](https://neovim.io/doc/user/usr_toc.html#user-manual) 
-* [TJ DeVries reads Neovim's user manual (9h27min video)](https://www.youtube.com/watch?v=rT-fbLFOCy0)
+* [The nvim command](https://vonheikemen.github.io/learn-nvim/101/the-nvim-command.html)
+* [Basic editing](https://vonheikemen.github.io/learn-nvim/101/basic-editing.html)
+* [Edit multiple files](https://vonheikemen.github.io/learn-nvim/101/edit-multiple-files.html)
+* [The help page](https://vonheikemen.github.io/learn-nvim/101/the-help-page.html)
 
 ## Learn the basics of lua and Neovim's api
 
 This configuration was created using a scripting language called `lua`, I highly recommend that you learn the syntax of this language. Learn just enough to know what is valid. Here are a couple resources:
 
+* [An Introduction to lua](https://vonheikemen.github.io/learn-nvim/101/lua-intro.html)
 * [Learn X in Y minutes: Where X = lua](https://learnxinyminutes.com/docs/lua/) 
 * [Lua crash course (12min video)](https://www.youtube.com/watch?v=NneB6GX1Els)
 
