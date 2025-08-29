@@ -75,7 +75,7 @@ lazy.plugins = {
   {'folke/tokyonight.nvim'},
   {'folke/which-key.nvim'},
   {'neovim/nvim-lspconfig'},
-  {'echasnovski/mini.nvim', branch = 'main'},
+  {'nvim-mini/mini.nvim', branch = 'main'},
   {'nvim-treesitter/nvim-treesitter', build = ':TSUpdate', branch = 'main'},
 }
 

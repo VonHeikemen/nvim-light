@@ -185,7 +185,7 @@ Leader key: `Space`.
 | [lazy.nvim](https://github.com/folke/lazy.nvim)                                          | Plugin manager.                                                           |
 | [tokyonight.nvim](https://github.com/folke/tokyonight.nvim)                              | Collection of colorscheme for Neovim.                                     |
 | [which-key.nvim](https://github.com/folke/which-key.nvim)                                | Provide clues for keymaps.                                                |
-| [mini.nvim](https://github.com/echasnovski/mini.nvim)                                    | Collection of independent lua modules that enhance Neovim's features.     |
+| [mini.nvim](https://github.com/nvim-mini/mini.nvim)                                      | Collection of independent lua modules that enhance Neovim's features.     |
 | [nvim-treesitter](https://github.com/nvim-treesitter/nvim-treesitter)                    | Configures treesitter parsers.                                            |
 | [nvim-lspconfig](https://github.com/neovim/nvim-lspconfig)                               | Quickstart configs for Neovim's LSP client.                               |
 
