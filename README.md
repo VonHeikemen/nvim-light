@@ -105,7 +105,7 @@ So inside Neovim execute the command `:TSInstall` and provide a list of parsers.
 
 On **Neovim v0.10** or lower the syntax highlight will be enabled automatically by the plugin `nvim-treesitter`.
 
-On **Neovim v0.11** or greater we must enable the syntax highlight ourselves. On this configuration on the [line 111](https://github.com/VonHeikemen/nvim-light/blob/main/init.lua#L111) there is a variable called `filetypes`, that's the list of languages where the syntax highlight will be enabled.
+On **Neovim v0.11** or greater we must enable the syntax highlight ourselves. On this configuration on the [line 190](https://github.com/VonHeikemen/nvim-light/blob/main/init.lua#L190) there is a variable called `filetypes`, that's the list of languages where the syntax highlight will be enabled.
 
 ```lua
 local filetypes = {'lua', 'gleam', 'help'}
@@ -115,19 +115,9 @@ Notice that sometimes the parser and the filetype name don't match. In this exam
 
 ## Learn more about the plugin manager
 
-`lazy.nvim` is the plugin manager used in this configuration. Here are a few resources that will help you understand some of it's features:
+`mini.deps` is the plugin manager used in this configuration. Make sure to read the documentation to learn how to add more plugins:
 
-* [Lazy.nvim: plugin configuration](https://dev.to/vonheikemen/lazynvim-plugin-configuration-3opi). Here you'll learn about the "plugin spec" and how to split your plugin setup into multiple files.
-
-* [Lazy.nvim: how to revert a plugin back to a previous version](https://dev.to/vonheikemen/lazynvim-how-to-revert-a-plugin-back-to-a-previous-version-1pdp). Learn how to recover from a bad plugin update.
-
-### Plugins directory
-
-Your plugins will be installed in a separate directory from your configuration. The location of this directory depends on your operating system and environment variables, so you'll need to execute this command to know where that is.
-
-```sh
-nvim --headless -c 'echo stdpath("data") . "/lazy/lazy.nvim" | quit'
-```
+* [mini.deps overview](https://nvim-mini.org/mini.nvim/doc/mini-deps.html#minideps-overview)
 
 ## Keybindings
 
@@ -182,7 +172,6 @@ Leader key: `Space`.
 
 | Name                                                                                     | Description                                                               |
 | ---                                                                                      | ---                                                                       |
-| [lazy.nvim](https://github.com/folke/lazy.nvim)                                          | Plugin manager.                                                           |
 | [tokyonight.nvim](https://github.com/folke/tokyonight.nvim)                              | Collection of colorscheme for Neovim.                                     |
 | [which-key.nvim](https://github.com/folke/which-key.nvim)                                | Provide clues for keymaps.                                                |
 | [mini.nvim](https://github.com/nvim-mini/mini.nvim)                                      | Collection of independent lua modules that enhance Neovim's features.     |

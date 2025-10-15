@@ -29,115 +29,76 @@ vim.keymap.set({'n', 'x'}, 'gp', '"+p', {desc = 'Paste clipboard content'})
 -- ==                               PLUGINS                                == --
 -- ========================================================================== --
 
-local lazy = {}
+local mini = {}
 
-function lazy.install(path)
+mini.branch = 'main'
+mini.packpath = vim.fn.stdpath('data') .. '/site'
+
+function mini.require_deps()
   local uv = vim.uv or vim.loop
-  if not uv.fs_stat(path) then
-    print('Installing lazy.nvim....')
+  local mini_path = mini.packpath .. '/pack/deps/start/mini.nvim'
+
+  if not uv.fs_stat(mini_path) then
+    print('Installing mini.nvim....')
     vim.fn.system({
       'git',
       'clone',
       '--filter=blob:none',
-      'https://github.com/folke/lazy.nvim.git',
-      '--branch=stable', -- latest stable release
-      path,
+      'https://github.com/nvim-mini/mini.nvim',
+      string.format('--branch=%s', mini.branch),
+      mini_path
     })
-  end
-end
 
-function lazy.setup(plugins)
-  if vim.g.plugins_ready then
-    return
+    vim.cmd('packadd mini.nvim | helptags ALL')
   end
 
-  -- You can "comment out" the line below after lazy.nvim is installed
-  lazy.install(lazy.path)
+  local ok, deps = pcall(require, 'mini.deps')
+  if not ok then
+    return {}
+  end
 
-  vim.opt.rtp:prepend(lazy.path)
-
-  require('lazy').setup(plugins, lazy.opts)
-  vim.g.plugins_ready = true
+  return deps
 end
 
-lazy.path = table.concat({
-  vim.fn.stdpath('data') --[[@as string]],
-  'lazy',
-  'lazy.nvim'
-}, '/')
+local MiniDeps = mini.require_deps()
+if not MiniDeps.setup then
+  return
+end
 
-lazy.opts = {}
+MiniDeps.add('folke/tokyonight.nvim')
+MiniDeps.add('folke/which-key.nvim')
+MiniDeps.add({
+  source = 'nvim-mini/mini.nvim',
+  checkout = mini.branch,
+})
 
--- Learn more about lazy.nvim
--- (plugin configuration, how to split your config in multiple files)
--- https://dev.to/vonheikemen/lazynvim-plugin-configuration-3opi
-lazy.plugins = {
-  {'folke/tokyonight.nvim'},
-  {'folke/which-key.nvim'},
-  {'neovim/nvim-lspconfig'},
-  {'nvim-mini/mini.nvim', branch = 'main'},
-  {'nvim-treesitter/nvim-treesitter', build = ':TSUpdate', branch = 'main'},
-}
-
--- The following plugins no longer support Neovim v0.10 or lower.
--- They need to be pinned to a version that is compatible.
-if vim.fn.has('nvim-0.11') == 0 then
-  vim.list_extend(lazy.plugins, {
-    {'neovim/nvim-lspconfig', tag = 'v1.8.0', pin = true},
-    {
-      'nvim-treesitter/nvim-treesitter',
-      tag = 'v0.10.0',
-      pin = true,
-      main = 'nvim-treesitter.configs',
-      opts = {
-        highlight = {enable = true},
-        ensure_installed = {'lua', 'vim', 'vimdoc', 'c', 'query'},
-      },
+if vim.fn.has('nvim-0.11') == 1 then
+  MiniDeps.add('neovim/nvim-lspconfig')
+  MiniDeps.add({
+    source = 'nvim-treesitter/nvim-treesitter',
+    checkout = 'main',
+    hooks = {
+      post_checkout = function()
+        vim.cmd.TSUpdate()
+      end,
     },
   })
+else
+  MiniDeps.add({
+    source = 'neovim/nvim-lspconfig',
+    checkout = 'v1.8.0',
+  })
+  MiniDeps.add({
+    source = 'nvim-treesitter/nvim-treesitter',
+    checkout = 'v0.10.0',
+  })
 end
-
-lazy.setup(lazy.plugins)
 
 -- ========================================================================== --
 -- ==                         PLUGIN CONFIGURATION                         == --
 -- ========================================================================== --
 
 vim.cmd.colorscheme('tokyonight')
-
--- Newer versions of nvim-treesitter no longer provide
--- fancy modules that enable features for us.
--- On Neovim v0.11 we need to enable each feature manually.
--- See :help nvim-treesitter-quickstart
-if vim.fn.has('nvim-0.11') == 1 then
-  local filetypes = {'lua'}
-
-  vim.api.nvim_create_autocmd('FileType', {
-    pattern = filetypes,
-    callback = function()
-      -- enable syntax highlight
-      vim.treesitter.start()
-    end,
-  })
-end
-
--- See :help which-key.nvim-which-key-setup
-require('which-key').setup({
-  icons = {
-    mappings = false,
-    keys = {
-      Space = 'Space',
-      Esc = 'Esc',
-      BS = 'Backspace',
-      C = 'Ctrl-',
-    },
-  },
-})
-
-require('which-key').add({
-  {'<leader>f', group = 'Fuzzy Find'},
-  {'<leader>b', group = 'Buffer'},
-})
 
 -- See :help MiniIcons.config
 -- Change style to 'glyph' if you have a font with fancy icons
@@ -156,9 +117,6 @@ require('mini.surround').setup({})
 require('mini.notify').setup({
   lsp_progress = {enable = false},
 })
-
--- See :help MiniNotify.make_notify()
-vim.notify = require('mini.notify').make_notify({})
 
 -- See :help MiniBufremove.config
 require('mini.bufremove').setup({})
@@ -193,33 +151,8 @@ vim.keymap.set('n', '<leader>fg', '<cmd>Pick grep_live<cr>', {desc = 'Search in 
 vim.keymap.set('n', '<leader>fd', '<cmd>Pick diagnostic<cr>', {desc = 'Search diagnostics'})
 vim.keymap.set('n', '<leader>fs', '<cmd>Pick buf_lines<cr>', {desc = 'Buffer local search'})
 
--- See :help MiniStatusline-example-content
-local mini_statusline = require('mini.statusline')
-
-local function statusline()
-  local mode, mode_hl = mini_statusline.section_mode({trunc_width = 120})
-  local diagnostics = mini_statusline.section_diagnostics({trunc_width = 75})
-  local lsp = mini_statusline.section_lsp({icon = 'LSP', trunc_width = 75})
-  local filename = mini_statusline.section_filename({trunc_width = 140})
-  local percent = '%2p%%'
-  local location = '%3l:%-2c'
-
-  return mini_statusline.combine_groups({
-    {hl = mode_hl,                  strings = {mode}},
-    {hl = 'MiniStatuslineDevinfo',  strings = {diagnostics, lsp}},
-    '%<', -- Mark general truncate point
-    {hl = 'MiniStatuslineFilename', strings = {filename}},
-    '%=', -- End left alignment
-    {hl = 'MiniStatuslineFilename', strings = {'%{&filetype}'}},
-    {hl = 'MiniStatuslineFileinfo', strings = {percent}},
-    {hl = mode_hl,                  strings = {location}},
-  })
-end
-
 -- See :help MiniStatusline.config
-mini_statusline.setup({
-  content = {active = statusline},
-})
+require('mini.statusline').setup({})
 
 -- See :help MiniExtra
 require('mini.extra').setup({})
@@ -230,6 +163,48 @@ require('mini.snippets').setup({})
 -- See :help MiniCompletion.config
 require('mini.completion').setup({})
 
+-- See :help which-key.nvim-which-key-setup
+require('which-key').setup({
+  icons = {
+    mappings = false,
+    keys = {
+      Space = 'Space',
+      Esc = 'Esc',
+      BS = 'Backspace',
+      C = 'Ctrl-',
+    },
+  },
+})
+
+require('which-key').add({
+  {'<leader>f', group = 'Fuzzy Find'},
+  {'<leader>b', group = 'Buffer'},
+})
+
+-- Treesitter setup
+if vim.fn.has('nvim-0.11') == 1 then
+  -- Newer versions of nvim-treesitter no longer provide
+  -- fancy modules that enable features for us.
+  -- On Neovim v0.11 we need to enable each feature manually.
+  -- See :help nvim-treesitter-quickstart
+  local filetypes = {'lua'}
+
+  vim.api.nvim_create_autocmd('FileType', {
+    pattern = filetypes,
+    callback = function()
+      -- enable syntax highlight
+      vim.treesitter.start()
+    end,
+  })
+else
+  -- This setup method only works for nvim-treesitter `v0.10.0`
+  -- which should only be downloaded if neovim's version is below v0.11
+  require('nvim-treesitter.configs').setup({
+    highlight = {enable = true},
+    ensure_installed = {'lua', 'vim', 'vimdoc', 'c', 'query'},
+  })
+end
+
 vim.api.nvim_create_autocmd('LspAttach', {
   desc = 'LSP actions',
   callback = function(event)
@@ -239,6 +214,7 @@ vim.api.nvim_create_autocmd('LspAttach', {
     -- I've added them here for backwards compatibility
     vim.keymap.set('n', 'grr', '<cmd>lua vim.lsp.buf.references()<cr>', opts)
     vim.keymap.set('n', 'gri', '<cmd>lua vim.lsp.buf.implementation()<cr>', opts)
+    vim.keymap.set('n', 'grt', '<cmd>lua vim.lsp.buf.type_definition()<cr>', opts)
     vim.keymap.set('n', 'grn', '<cmd>lua vim.lsp.buf.rename()<cr>', opts)
     vim.keymap.set('n', 'gra', '<cmd>lua vim.lsp.buf.code_action()<cr>', opts)
     vim.keymap.set('n', 'gO', '<cmd>lua vim.lsp.buf.document_symbol()<cr>', opts)
@@ -247,7 +223,6 @@ vim.api.nvim_create_autocmd('LspAttach', {
     -- These are custom keymaps
     vim.keymap.set('n', 'K', '<cmd>lua vim.lsp.buf.hover()<cr>', opts)
     vim.keymap.set('n', 'gd', '<cmd>lua vim.lsp.buf.definition()<cr>', opts)
-    vim.keymap.set('n', 'grt', '<cmd>lua vim.lsp.buf.type_definition()<cr>', opts)
     vim.keymap.set('n', 'grd', '<cmd>lua vim.lsp.buf.declaration()<cr>', opts)
     vim.keymap.set({'n', 'x'}, 'gq', '<cmd>lua vim.lsp.buf.format({async = true})<cr>', opts)
   end,
