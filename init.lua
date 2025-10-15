@@ -84,6 +84,10 @@ if vim.fn.has('nvim-0.11') == 1 then
     },
   })
 else
+  -- NOTE: These plugins no longer support older Neovim versions.
+  -- If your Neovim version is below v0.11 they will be pinned to
+  -- a version that still supports Neovim v0.9
+
   MiniDeps.add({
     source = 'neovim/nvim-lspconfig',
     checkout = 'v1.8.0',
@@ -182,18 +186,34 @@ require('which-key').add({
 })
 
 -- Treesitter setup
+local ts_parsers = {'lua', 'vim', 'vimdoc', 'c', 'query'}
+
 if vim.fn.has('nvim-0.11') == 1 then
-  -- Newer versions of nvim-treesitter no longer provide
-  -- fancy modules that enable features for us.
-  -- On Neovim v0.11 we need to enable each feature manually.
-  -- See :help nvim-treesitter-quickstart
-  local filetypes = {'lua'}
+  require('nvim-treesitter').install(ts_parsers)
+
+  local ts = vim.treesitter
+  local ts_filetypes = vim.iter(ts_parsers)
+    :map(ts.language.get_filetypes)
+    :flatten()
+    :fold({}, function(tbl, v)
+      tbl[v] = true
+      return tbl
+    end)
 
   vim.api.nvim_create_autocmd('FileType', {
-    pattern = filetypes,
-    callback = function()
-      -- enable syntax highlight
-      vim.treesitter.start()
+    desc = 'enable treesitter',
+    callback = function(event)
+      local ft = event.match
+      if ts_filetypes[ft] == nil then
+        return
+      end
+
+      local lang = ts.language.get_lang(ft)
+      local ok, hl = pcall(ts.query.get, lang, 'highlights')
+
+      if ok and hl then
+        ts.start(event.buf, lang)
+      end
     end,
   })
 else
@@ -201,7 +221,7 @@ else
   -- which should only be downloaded if neovim's version is below v0.11
   require('nvim-treesitter.configs').setup({
     highlight = {enable = true},
-    ensure_installed = {'lua', 'vim', 'vimdoc', 'c', 'query'},
+    ensure_installed = ts_parsers,
   })
 end
 

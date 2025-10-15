@@ -97,21 +97,16 @@ In this example `lua_ls` is the language server we want to enable.
 
 To get a more accurate syntax highlight for your favorite language you need to download something called a "treesitter parser".
 
-So inside Neovim execute the command `:TSInstall` and provide a list of parsers. For example:
-
-```vim
-:TSInstall lua gleam vimdoc
-```
-
-On **Neovim v0.10** or lower the syntax highlight will be enabled automatically by the plugin `nvim-treesitter`.
-
-On **Neovim v0.11** or greater we must enable the syntax highlight ourselves. On this configuration on the [line 190](https://github.com/VonHeikemen/nvim-light/blob/main/init.lua#L190) there is a variable called `filetypes`, that's the list of languages where the syntax highlight will be enabled.
+So inside this configuration, on [line 191](https://github.com/VonHeikemen/nvim-light/blob/main/init.lua#L191), there is a variable called `ts_parsers`, and initially it looks like this. 
 
 ```lua
-local filetypes = {'lua', 'gleam', 'help'}
+local ts_parsers = {'lua', 'vim', 'vimdoc', 'c', 'query'}
 ```
+That will be a list of parsers, and they will be installed automatically on startup. You can add more languages to this list, but make sure is supported by the plugin `nvim-treesitter`.
 
-Notice that sometimes the parser and the filetype name don't match. In this example the parser `vimdoc` is for the filetype `help`.
+In older versions of Neovim, below **v0.11**, this configuration will download `nvim-treesitter` version `v0.10.0`. The list of supported languages is in the "master" branch of the github repository: [supported languages](https://github.com/nvim-treesitter/nvim-treesitter/tree/master?tab=readme-ov-file#supported-languages).
+
+In Neovim versions greater than **v0.11** this configuration will download the most recent version of `nvim-treesitter` from the [main branch](https://github.com/nvim-treesitter/nvim-treesitter/tree/main). The list of supported is located here: [SUPPORTED_LANGUAGES.md](https://github.com/nvim-treesitter/nvim-treesitter/blob/main/SUPPORTED_LANGUAGES.md).
 
 ## Learn more about the plugin manager
 
