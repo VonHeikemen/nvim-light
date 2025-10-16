@@ -65,6 +65,13 @@ if not MiniDeps.setup then
   return
 end
 
+-- See :help MiniDeps.config
+MiniDeps.setup({
+  path = {
+    package = mini.packpath,
+  },
+})
+
 MiniDeps.add('folke/tokyonight.nvim')
 MiniDeps.add('folke/which-key.nvim')
 MiniDeps.add({
