@@ -97,7 +97,7 @@ In this example `lua_ls` is the language server we want to enable.
 
 To get a more accurate syntax highlight for your favorite language you need to download something called a "treesitter parser".
 
-So inside this configuration, on [line 189](https://github.com/VonHeikemen/nvim-light/blob/main/init.lua#L189), there is a variable called `ts_parsers`, and initially it looks like this. 
+So inside this configuration, on [line 196](https://github.com/VonHeikemen/nvim-light/blob/main/init.lua#L196), there is a variable called `ts_parsers`, and initially it looks like this. 
 
 ```lua
 local ts_parsers = {'lua', 'vim', 'vimdoc', 'c', 'query'}
