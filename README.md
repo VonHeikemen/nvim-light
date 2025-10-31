@@ -74,7 +74,7 @@ They are external programs that provide IDE-like features to Neovim. If you want
 
 To know what language servers are supported you need to go to nvim-lspconfig's documentation, in [configs.md](https://github.com/neovim/nvim-lspconfig/blob/master/doc/configs.md) you'll find links and instruction on how to install them.
 
-Once you have a language server available in your system you need to enable it.
+Once you have a language server available in your system you need to enable it. Here's an example using the language server for lua, `lua_ls`.
 
 On **Neovim v0.10** or lower you must use the "legacy setup" function.
 
@@ -91,8 +91,6 @@ vim.lsp.enable('lua_ls')
 > [!TIP]
 > Copy the content of [.luarc.json of this github repository](https://github.com/VonHeikemen/nvim-light/blob/main/.luarc.json) into your own `.luarc.json`. This file should be located next to your `init.lua`. With it the language server for lua will provide basic support for Neovim's lua api.
 
-In this example `lua_ls` is the language server we want to enable.
-
 ## About syntax highlight
 
 To get a more accurate syntax highlight for your favorite language you need to download something called a "treesitter parser".
@@ -102,7 +100,7 @@ So inside this configuration, on [line 196](https://github.com/VonHeikemen/nvim-
 ```lua
 local ts_parsers = {'lua', 'vim', 'vimdoc', 'c', 'query'}
 ```
-That will be a list of parsers, and they will be installed automatically on startup. You can add more languages to this list, but make sure is supported by the plugin `nvim-treesitter`.
+That will be a list of parsers, and they will be installed automatically. You can add more languages to this list, but make sure is supported by the plugin `nvim-treesitter`.
 
 In older versions of Neovim, below **v0.11**, this configuration will download `nvim-treesitter` version `v0.10.0`. The list of supported languages is in the "master" branch of the github repository: [supported languages](https://github.com/nvim-treesitter/nvim-treesitter/tree/master?tab=readme-ov-file#supported-languages).
 
