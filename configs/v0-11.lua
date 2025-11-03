@@ -17,9 +17,10 @@ vim.o.termguicolors = true
 vim.o.updatetime = 250
 vim.o.timeoutlen = 300
 vim.o.signcolumn = 'yes'
+vim.o.winborder = 'rounded'
 
 -- Space as leader key
-vim.g.mapleader = ' '
+vim.g.mapleader = vim.keycode('<Space>')
 
 -- Basic clipboard interaction
 vim.keymap.set({'n', 'x'}, 'gy', '"+y', {desc = 'Copy to clipboard'})
@@ -74,36 +75,20 @@ MiniDeps.setup({
 
 MiniDeps.add('folke/tokyonight.nvim')
 MiniDeps.add('folke/which-key.nvim')
+MiniDeps.add('neovim/nvim-lspconfig')
 MiniDeps.add({
   source = 'nvim-mini/mini.nvim',
   checkout = mini.branch,
 })
-
-if vim.fn.has('nvim-0.11') == 1 then
-  MiniDeps.add('neovim/nvim-lspconfig')
-  MiniDeps.add({
-    source = 'nvim-treesitter/nvim-treesitter',
-    checkout = 'main',
-    hooks = {
-      post_checkout = function()
-        vim.cmd.TSUpdate()
-      end,
-    },
-  })
-else
-  -- NOTE: These plugins no longer support older Neovim versions.
-  -- If your Neovim version is below v0.11 they will be pinned to
-  -- a version that still supports Neovim v0.9
-
-  MiniDeps.add({
-    source = 'neovim/nvim-lspconfig',
-    checkout = 'v1.8.0',
-  })
-  MiniDeps.add({
-    source = 'nvim-treesitter/nvim-treesitter',
-    checkout = 'v0.10.0',
-  })
-end
+MiniDeps.add({
+  source = 'nvim-treesitter/nvim-treesitter',
+  checkout = 'main',
+  hooks = {
+    post_checkout = function()
+      vim.cmd.TSUpdate()
+    end,
+  },
+})
 
 -- ========================================================================== --
 -- ==                         PLUGIN CONFIGURATION                         == --
@@ -114,12 +99,6 @@ vim.cmd.colorscheme('tokyonight')
 -- See :help MiniIcons.config
 -- Change style to 'glyph' if you have a font with fancy icons
 require('mini.icons').setup({style = 'ascii'})
-
--- See :help MiniAi-textobject-builtin
-require('mini.ai').setup({n_lines = 500})
-
--- See :help MiniComment.config
-require('mini.comment').setup({})
 
 -- See :help MiniSurround.config
 require('mini.surround').setup({})
@@ -195,73 +174,52 @@ require('which-key').add({
 -- Treesitter setup
 local ts_parsers = {'lua', 'vim', 'vimdoc', 'c', 'query'}
 
-if vim.fn.has('nvim-0.11') == 1 then
-  local ts = vim.treesitter
-  local ts_installed = require('nvim-treesitter').get_installed()
+local ts = vim.treesitter
+local ts_installed = require('nvim-treesitter').get_installed()
 
-  local ts_filetypes = vim.iter(ts_parsers)
-    :map(ts.language.get_filetypes)
-    :flatten()
-    :fold({}, function(tbl, v)
-      tbl[v] = vim.tbl_contains(ts_installed, v)
-      return tbl
-    end)
+local ts_filetypes = vim.iter(ts_parsers)
+  :map(ts.language.get_filetypes)
+  :flatten()
+  :fold({}, function(tbl, v)
+    tbl[v] = vim.tbl_contains(ts_installed, v)
+    return tbl
+  end)
 
-  local ts_enable = function(buffer, lang)
-    local ok, hl = pcall(ts.query.get, lang, 'highlights')
-    if ok and hl then
-      ts.start(buffer, lang)
-    end
+local ts_enable = function(buffer, lang)
+  local ok, hl = pcall(ts.query.get, lang, 'highlights')
+  if ok and hl then
+    ts.start(buffer, lang)
   end
-
-  vim.api.nvim_create_autocmd('FileType', {
-    desc = 'enable treesitter',
-    callback = function(event)
-      local ft = event.match
-      local available = ts_filetypes[ft]
-      if available == nil then
-        return
-      end
-
-      local lang = ts.language.get_lang(ft)
-      local buffer = event.buf
-
-      if available then
-        ts_enable(buffer, lang)
-        return
-      end
-
-      require('nvim-treesitter').install(lang):await(function()
-        ts_filetypes[ft] = true
-        ts_enable(buffer, lang)
-      end)
-    end,
-  })
-else
-  -- This setup method only works for nvim-treesitter `v0.10.0`
-  -- which should only be downloaded if neovim's version is below v0.11
-  require('nvim-treesitter.configs').setup({
-    highlight = {enable = true},
-    ensure_installed = ts_parsers,
-  })
 end
+
+vim.api.nvim_create_autocmd('FileType', {
+  desc = 'enable treesitter',
+  callback = function(event)
+    local ft = event.match
+    local available = ts_filetypes[ft]
+    if available == nil then
+      return
+    end
+
+    local lang = ts.language.get_lang(ft)
+    local buffer = event.buf
+
+    if available then
+      ts_enable(buffer, lang)
+      return
+    end
+
+    require('nvim-treesitter').install(lang):await(function()
+      ts_filetypes[ft] = true
+      ts_enable(buffer, lang)
+    end)
+  end,
+})
 
 vim.api.nvim_create_autocmd('LspAttach', {
   desc = 'LSP actions',
   callback = function(event)
     local opts = {buffer = event.buf}
-
-    -- These keymaps will become defaults after Neovim v0.11
-    -- I've added them here for backwards compatibility
-    vim.keymap.set('n', 'grr', '<cmd>lua vim.lsp.buf.references()<cr>', opts)
-    vim.keymap.set('n', 'gri', '<cmd>lua vim.lsp.buf.implementation()<cr>', opts)
-    vim.keymap.set('n', 'grt', '<cmd>lua vim.lsp.buf.type_definition()<cr>', opts)
-    vim.keymap.set('n', 'grn', '<cmd>lua vim.lsp.buf.rename()<cr>', opts)
-    vim.keymap.set('n', 'gra', '<cmd>lua vim.lsp.buf.code_action()<cr>', opts)
-    vim.keymap.set('n', 'gO', '<cmd>lua vim.lsp.buf.document_symbol()<cr>', opts)
-    vim.keymap.set({'i', 's'}, '<C-s>', '<cmd>lua vim.lsp.buf.signature_help()<cr>', opts)
-
-    -- These are custom keymaps
     vim.keymap.set('n', 'K', '<cmd>lua vim.lsp.buf.hover()<cr>', opts)
     vim.keymap.set('n', 'gd', '<cmd>lua vim.lsp.buf.definition()<cr>', opts)
     vim.keymap.set('n', 'grd', '<cmd>lua vim.lsp.buf.declaration()<cr>', opts)

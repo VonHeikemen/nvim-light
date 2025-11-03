@@ -22,7 +22,9 @@ If you need a `C` compiler then `zig` is the easiest to install. It's available 
 
 * Backup your existing configuration if you have one.
 
-* Create an `init.lua` file in your system. Use this command in your terminal if you don't know the specific location of Neovim's configuration folder.
+* Create an `init.lua` file in your system.
+
+  Use this command in your terminal if you don't know the specific location of Neovim's configuration folder.
 
   ```sh
   nvim --headless -c 'exe "write ++p" stdpath("config") . "/init.lua"' -c 'quit'
@@ -36,7 +38,26 @@ If you need a `C` compiler then `zig` is the easiest to install. It's available 
 
   This will show you the path of your `init.lua`
 
-* Copy the content of [init.lua of this github repository](https://github.com/VonHeikemen/nvim-light/blob/main/init.lua) into your own `init.lua`.
+* Choose an appropiate configuration file from the [configs directory](https://github.com/VonHeikemen/nvim-light/tree/main/configs) of this github repository.
+
+  Use this command to output Neovim's information
+
+  ```sh
+  nvim --version
+  ```
+
+  This is what you get on Neovim's latest stable version
+
+  ```
+  NVIM v0.11.5
+  Build type: Release
+  LuaJIT 2.1.1741730670
+  Run "nvim -V1 -v" for more info
+  ```
+
+  The important bit here is `NVIM v0.11.5`. In this case the appropiate file is [configs/v0-11.lua](https://github.com/VonHeikemen/nvim-light/blob/main/configs/v0-11.lua).
+
+  Then copy the content of the configuration file into your own `init.lua`.
 
 * Open Neovim, use the command `nvim` in your terminal. When Neovim starts all plugins will be downloaded automatically.
 
@@ -95,22 +116,26 @@ vim.lsp.enable('lua_ls')
 
 To get a more accurate syntax highlight for your favorite language you need to download something called a "treesitter parser".
 
-So inside this configuration, on [line 196](https://github.com/VonHeikemen/nvim-light/blob/main/init.lua#L196), there is a variable called `ts_parsers`, and initially it looks like this. 
+So inside this configuration there is a variable called `ts_parsers`, and initially it looks like this. 
 
 ```lua
 local ts_parsers = {'lua', 'vim', 'vimdoc', 'c', 'query'}
 ```
 That will be a list of parsers, and they will be installed automatically. You can add more languages to this list, but make sure is supported by the plugin `nvim-treesitter`.
 
-In older versions of Neovim, below **v0.11**, this configuration will download `nvim-treesitter` version `v0.10.0`. The list of supported languages is in the "master" branch of the github repository: [supported languages](https://github.com/nvim-treesitter/nvim-treesitter/tree/master?tab=readme-ov-file#supported-languages).
+Is important to note `nvim-treesitter` no longer supports Neovim versions below **v0.11**. So on older versions of Neovim `nvim-treesitter` will be pinned to version from the [master branch](https://github.com/nvim-treesitter/nvim-treesitter/tree/master). In this case you'll find the list of supported languages here: [supported languages](https://github.com/nvim-treesitter/nvim-treesitter/tree/master?tab=readme-ov-file#supported-languages).
 
-In Neovim versions greater than **v0.11** this configuration will download the most recent version of `nvim-treesitter` from the [main branch](https://github.com/nvim-treesitter/nvim-treesitter/tree/main). The list of supported is located here: [SUPPORTED_LANGUAGES.md](https://github.com/nvim-treesitter/nvim-treesitter/blob/main/SUPPORTED_LANGUAGES.md).
+New versions of `nvim-treesitter` are under the [main branch](https://github.com/nvim-treesitter/nvim-treesitter/tree/main). The list of supported is located here: [SUPPORTED_LANGUAGES.md](https://github.com/nvim-treesitter/nvim-treesitter/blob/main/SUPPORTED_LANGUAGES.md).
 
-## Learn more about the plugin manager
+## About the plugin manager
 
-`mini.deps` is the plugin manager used in this configuration. Make sure to read the documentation to learn how to add more plugins:
+Neovim versions below **v0.11** will use `mini.deps` as the plugin manager. Make sure to read the documentation to learn how to add more plugins:
 
 * [mini.deps overview](https://nvim-mini.org/mini.nvim/doc/mini-deps.html#minideps-overview)
+
+Neovim **v0.12** and greater will use `vim.pack`, a builtin plugin manager currently under development.
+
+* [vim.pack official documentation](https://neovim.io/doc/user/pack.html#vim.pack).
 
 ## Keybindings
 
