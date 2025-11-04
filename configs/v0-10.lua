@@ -74,10 +74,13 @@ MiniDeps.setup({
 
 MiniDeps.add('folke/tokyonight.nvim')
 MiniDeps.add('folke/which-key.nvim')
-MiniDeps.add('neovim/nvim-lspconfig')
 MiniDeps.add({
   source = 'nvim-mini/mini.nvim',
   checkout = mini.branch,
+})
+MiniDeps.add({
+  source = 'neovim/nvim-lspconfig',
+  checkout = 'v2.4.0',
 })
 MiniDeps.add({
   source = 'nvim-treesitter/nvim-treesitter',
