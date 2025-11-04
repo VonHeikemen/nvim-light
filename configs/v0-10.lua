@@ -80,7 +80,7 @@ MiniDeps.add({
 })
 MiniDeps.add({
   source = 'neovim/nvim-lspconfig',
-  checkout = 'v2.4.0',
+  checkout = 'v2.5.0',
 })
 MiniDeps.add({
   source = 'nvim-treesitter/nvim-treesitter',
