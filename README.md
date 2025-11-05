@@ -24,19 +24,13 @@ If you need a `C` compiler then `zig` is the easiest to install. It's available 
 
 * Create an `init.lua` file in your system.
 
-  Use this command in your terminal if you don't know the specific location of Neovim's configuration folder.
+  If you don't know the location of Neovim's configuration file use this command.
 
   ```sh
-  nvim --headless -c 'exe "write ++p" stdpath("config") . "/init.lua"' -c 'quit'
+  nvim --headless -c 'echo stdpath("config") . "/init.lua" . "\n"' -c 'quit'
   ```
 
-  To check the file was created you can use this command.
-
-  ```sh
-  nvim --headless -c 'echo $MYVIMRC' -c 'quit'
-  ```
-
-  This will show you the path of your `init.lua`
+  Use whatever method you want to create the config folder and also an empty `init.lua` file.
 
 * Choose a configuration file from the [configs directory](https://github.com/VonHeikemen/nvim-light/tree/main/configs) and copy its content to your own `init.lua`.
 
