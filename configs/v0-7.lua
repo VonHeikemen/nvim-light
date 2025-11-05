@@ -17,10 +17,9 @@ vim.o.termguicolors = true
 vim.o.updatetime = 250
 vim.o.timeoutlen = 300
 vim.o.signcolumn = 'yes'
-vim.o.winborder = 'rounded'
 
 -- Space as leader key
-vim.g.mapleader = vim.keycode('<Space>')
+vim.g.mapleader = ' '
 
 -- Basic clipboard interaction
 vim.keymap.set({'n', 'x'}, 'gy', '"+y', {desc = 'Copy to clipboard'})
@@ -32,7 +31,7 @@ vim.keymap.set({'n', 'x'}, 'gp', '"+p', {desc = 'Paste clipboard content'})
 
 local mini = {}
 
-mini.branch = 'main'
+mini.revision = 'dd71253c8ab1569f7664034579345f3ae10efa81'
 mini.packpath = vim.fn.stdpath('data') .. '/site'
 
 function mini.require_deps()
@@ -46,9 +45,12 @@ function mini.require_deps()
       'clone',
       '--filter=blob:none',
       'https://github.com/nvim-mini/mini.nvim',
-      string.format('--branch=%s', mini.branch),
       mini_path
     })
+
+    local switch_cmd = {'git', 'switch', '--detach', mini.revision}
+    local job_opts = {cwd = mini_path}
+    vim.fn.jobwait({vim.fn.jobstart(switch_cmd, job_opts)})
 
     vim.cmd('packadd mini.nvim | helptags ALL')
   end
@@ -73,32 +75,35 @@ MiniDeps.setup({
   },
 })
 
-MiniDeps.add('folke/tokyonight.nvim')
-MiniDeps.add('folke/which-key.nvim')
-MiniDeps.add('neovim/nvim-lspconfig')
+MiniDeps.add({
+  source = 'folke/tokyonight.nvim',
+  checkout = '18259404c962736c70c0f670b71c976c4a5ac2bb',
+})
+MiniDeps.add({
+  source = 'folke/which-key.nvim',
+  checkout = '4b7167f8fb2dba3d01980735e3509e172c024c29',
+})
 MiniDeps.add({
   source = 'nvim-mini/mini.nvim',
-  checkout = mini.branch,
+  checkout = mini.revision,
+})
+MiniDeps.add({
+  source = 'neovim/nvim-lspconfig',
+  checkout = 'e85816c5803410cacb52e9b4fbdb72a1f1a6bd11',
 })
 MiniDeps.add({
   source = 'nvim-treesitter/nvim-treesitter',
-  checkout = 'main',
-  hooks = {
-    post_checkout = function()
-      vim.cmd.TSUpdate()
-    end,
-  },
+  checkout = '4cccb6f494eb255b32a290d37c35ca12584c74d0',
 })
 
 -- ========================================================================== --
 -- ==                         PLUGIN CONFIGURATION                         == --
 -- ========================================================================== --
 
-vim.cmd.colorscheme('tokyonight')
+vim.cmd('colorscheme tokyonight')
 
--- See :help MiniIcons.config
--- Change style to 'glyph' if you have a font with fancy icons
-require('mini.icons').setup({style = 'ascii'})
+-- See :help MiniComment.config
+require('mini.comment').setup({})
 
 -- See :help MiniSurround.config
 require('mini.surround').setup({})
@@ -147,83 +152,50 @@ require('mini.statusline').setup({})
 -- See :help MiniExtra
 require('mini.extra').setup({})
 
--- See :help MiniSnippets.config
-require('mini.snippets').setup({})
-
 -- See :help MiniCompletion.config
 require('mini.completion').setup({})
 
 -- See :help which-key.nvim-which-key-setup
-require('which-key').setup({
-  icons = {
-    mappings = false,
-    keys = {
-      Space = 'Space',
-      Esc = 'Esc',
-      BS = 'Backspace',
-      C = 'Ctrl-',
-    },
-  },
-})
-
-require('which-key').add({
-  {'<leader>f', group = 'Fuzzy Find'},
-  {'<leader>b', group = 'Buffer'},
-})
+local wk = require('which-key')
+wk.setup({})
+wk.register({gr = 'LSP Actions'})
+wk.register({f = 'Fuzzy Find', b = 'Buffers'}, {prefix = '<leader>'})
 
 -- Treesitter setup
-local ts_parsers = {'lua', 'vim', 'vimdoc', 'c', 'query'}
+local ts_parsers = {'lua', 'vim', 'help', 'c', 'query'}
+require('nvim-treesitter.configs').setup({
+  highlight = {enable = true},
+  ensure_installed = ts_parsers,
+})
 
-local ts = vim.treesitter
-local ts_installed = require('nvim-treesitter').get_installed()
+-- LSP setup
+local lspconfig = require('lspconfig')
+local lsp_defaults = lspconfig.util.default_config
+local nvim_07 = vim.fn.has('nvim-0.8') == 0
 
-local ts_filetypes = vim.iter(ts_parsers)
-  :map(ts.language.get_filetypes)
-  :flatten()
-  :fold({}, function(tbl, v)
-    tbl[v] = vim.tbl_contains(ts_installed, v)
-    return tbl
-  end)
+lsp_defaults.on_attach = function(client, bufnr)
+  local opts = {buffer = bufnr}
 
-local ts_enable = function(buffer, lang)
-  local ok, hl = pcall(ts.query.get, lang, 'highlights')
-  if ok and hl then
-    ts.start(buffer, lang)
+  -- These keymaps will become defaults after Neovim v0.11
+  -- I've added them here for backwards compatibility
+  vim.keymap.set('n', 'grr', '<cmd>lua vim.lsp.buf.references()<cr>', opts)
+  vim.keymap.set('n', 'gri', '<cmd>lua vim.lsp.buf.implementation()<cr>', opts)
+  vim.keymap.set('n', 'grt', '<cmd>lua vim.lsp.buf.type_definition()<cr>', opts)
+  vim.keymap.set('n', 'grn', '<cmd>lua vim.lsp.buf.rename()<cr>', opts)
+  vim.keymap.set('n', 'gra', '<cmd>lua vim.lsp.buf.code_action()<cr>', opts)
+  vim.keymap.set('n', 'gO', '<cmd>lua vim.lsp.buf.document_symbol()<cr>', opts)
+  vim.keymap.set({'i', 's'}, '<C-s>', '<cmd>lua vim.lsp.buf.signature_help()<cr>', opts)
+
+  -- These are custom keymaps
+  vim.keymap.set('n', 'K', '<cmd>lua vim.lsp.buf.hover()<cr>', opts)
+  vim.keymap.set('n', 'gd', '<cmd>lua vim.lsp.buf.definition()<cr>', opts)
+  vim.keymap.set('n', 'grd', '<cmd>lua vim.lsp.buf.declaration()<cr>', opts)
+
+  if nvim_07 then
+    vim.keymap.set('n', 'gq', '<cmd>lua vim.lsp.buf.formatting()<cr>', opts)
+    vim.keymap.set('x', 'gq', '<Esc><cmd>lua vim.lsp.buf.range_formatting()<cr>', opts)
+  else
+    vim.keymap.set({'n', 'x'}, 'gq', '<cmd>lua vim.lsp.buf.format({async = true})<cr>', opts)
   end
 end
-
-vim.api.nvim_create_autocmd('FileType', {
-  desc = 'enable treesitter',
-  callback = function(event)
-    local ft = event.match
-    local available = ts_filetypes[ft]
-    if available == nil then
-      return
-    end
-
-    local lang = ts.language.get_lang(ft)
-    local buffer = event.buf
-
-    if available then
-      ts_enable(buffer, lang)
-      return
-    end
-
-    require('nvim-treesitter').install(lang):await(function()
-      ts_filetypes[ft] = true
-      ts_enable(buffer, lang)
-    end)
-  end,
-})
-
-vim.api.nvim_create_autocmd('LspAttach', {
-  desc = 'LSP actions',
-  callback = function(event)
-    local opts = {buffer = event.buf}
-    vim.keymap.set('n', 'K', '<cmd>lua vim.lsp.buf.hover()<cr>', opts)
-    vim.keymap.set('n', 'gd', '<cmd>lua vim.lsp.buf.definition()<cr>', opts)
-    vim.keymap.set('n', 'grd', '<cmd>lua vim.lsp.buf.declaration()<cr>', opts)
-    vim.keymap.set({'n', 'x'}, 'gq', '<cmd>lua vim.lsp.buf.format({async = true})<cr>', opts)
-  end,
-})
 

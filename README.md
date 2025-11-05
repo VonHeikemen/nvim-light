@@ -4,7 +4,7 @@ Lightweight configuration focused on providing "basic features" with little boil
 
 ## Requirements
 
-* Neovim v0.9.5 or greater.
+* Neovim v0.7.2 or greater.
 * git.
 * [tree-sitter CLI](https://github.com/tree-sitter/tree-sitter).
 * A `C` compiler. Can be `gcc`, `tcc` or `zig`.
@@ -38,26 +38,22 @@ If you need a `C` compiler then `zig` is the easiest to install. It's available 
 
   This will show you the path of your `init.lua`
 
-* Choose an appropiate configuration file from the [configs directory](https://github.com/VonHeikemen/nvim-light/tree/main/configs) of this github repository.
+* Choose a configuration file from the [configs directory](https://github.com/VonHeikemen/nvim-light/tree/main/configs) and copy its content to your own `init.lua`.
 
-  Use this command to output Neovim's information
+  - [configs/stable.lua](https://github.com/VonHeikemen/nvim-light/blob/main/configs/stable.lua) requires NVIM v0.11 or greater
+  - [configs/nightly.lua](https://github.com/VonHeikemen/nvim-light/blob/main/configs/nightly.lua) targets NVIM v0.12, the current nightly version
+
+  You can check Neovim's version using this command.
 
   ```sh
   nvim --version
   ```
 
-  This is what you get on Neovim's latest stable version
+  If you need support for older Neovim versions:
 
-  ```
-  NVIM v0.11.5
-  Build type: Release
-  LuaJIT 2.1.1741730670
-  Run "nvim -V1 -v" for more info
-  ```
-
-  The important bit here is `NVIM v0.11.5`. In this case the appropiate file is [configs/v0-11.lua](https://github.com/VonHeikemen/nvim-light/blob/main/configs/v0-11.lua).
-
-  Then copy the content of the configuration file into your own `init.lua`.
+  - [configs/v0-7.lua](https://github.com/VonHeikemen/nvim-light/blob/main/configs/v0-7.lua) targets NVIM v0.7 and v0.8
+  - [configs/v0-9.lua](https://github.com/VonHeikemen/nvim-light/blob/main/configs/v0-9.lua) requires NVIM v0.9 or greater
+  - [configs/v0-10.lua](https://github.com/VonHeikemen/nvim-light/blob/main/configs/v0-10.lua) requires NVIM v0.10 or greater
 
 * Open Neovim, use the command `nvim` in your terminal. When Neovim starts all plugins will be downloaded automatically.
 

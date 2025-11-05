@@ -179,6 +179,7 @@ vim.api.nvim_create_autocmd('PackChanged', {
   end,
 })
 
+-- LSP setup
 vim.api.nvim_create_autocmd('LspAttach', {
   desc = 'LSP actions',
   callback = function(event)

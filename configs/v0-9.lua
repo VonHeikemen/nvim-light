@@ -178,6 +178,7 @@ require('nvim-treesitter.configs').setup({
   ensure_installed = ts_parsers,
 })
 
+-- LSP setup
 vim.api.nvim_create_autocmd('LspAttach', {
   desc = 'LSP actions',
   callback = function(event)

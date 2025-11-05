@@ -2,10 +2,8 @@
 
 Each lua script in this directory is a configuration made for a specific version of Neovim.
 
-* `v0-9.lua` requires NVIM v0.9 or greater
-* `v0-10.lua` requires NVIM v0.10 or greater
-* `v0-11.lua` requires NVIM v0.11 or greater
-* `v0-12.lua` requires NVIM v0.12 or greater
+* `stable.lua` requires NVIM v0.11 or greater
+* `nightly.lua` targets NVIM v0.12, the current "nightly version" 
 
 You can check Neovim's version using this command.
 
@@ -13,7 +11,11 @@ You can check Neovim's version using this command.
 nvim --version
 ```
 
-Note that **NVIM v0.11** is the current stable version. **NVIM v0.12** is the "nightly version," which means is under active development.
+If you need support for older Neovim versions:
+
+* `v0-7.lua` targets NVIM v0.7 and v0.8
+* `v0-9.lua` requires NVIM v0.9 or greater
+* `v0-10.lua` requires NVIM v0.10 or greater
 
 ## The nvim directory
 
