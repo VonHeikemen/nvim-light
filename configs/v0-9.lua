@@ -72,6 +72,8 @@ MiniDeps.setup({
   },
 })
 
+local nvim_10 = vim.fn.has('nvim-0.10') == 1
+
 MiniDeps.add('folke/tokyonight.nvim')
 MiniDeps.add('folke/which-key.nvim')
 MiniDeps.add({
@@ -80,7 +82,7 @@ MiniDeps.add({
 })
 MiniDeps.add({
   source = 'neovim/nvim-lspconfig',
-  checkout = 'v1.8.0',
+  checkout = nvim_10 and 'v2.5.0' or 'v1.8.0',
 })
 MiniDeps.add({
   source = 'nvim-treesitter/nvim-treesitter',

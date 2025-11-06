@@ -47,7 +47,6 @@ If you need a `C` compiler then `zig` is the easiest to install. It's available 
 
   - [configs/v0-7.lua](https://github.com/VonHeikemen/nvim-light/blob/main/configs/v0-7.lua) targets NVIM v0.7 and v0.8
   - [configs/v0-9.lua](https://github.com/VonHeikemen/nvim-light/blob/main/configs/v0-9.lua) requires NVIM v0.9 or greater
-  - [configs/v0-10.lua](https://github.com/VonHeikemen/nvim-light/blob/main/configs/v0-10.lua) requires NVIM v0.10 or greater
 
 * Open Neovim, use the command `nvim` in your terminal. When Neovim starts all plugins will be downloaded automatically.
 

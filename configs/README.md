@@ -15,7 +15,6 @@ If you need support for older Neovim versions:
 
 * `v0-7.lua` targets NVIM v0.7 and v0.8
 * `v0-9.lua` requires NVIM v0.9 or greater
-* `v0-10.lua` requires NVIM v0.10 or greater
 
 ## The nvim directory
 
