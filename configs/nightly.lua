@@ -3,7 +3,7 @@
 -- ========================================================================== --
 
 -- IMPORTANT: nvim v0.12 is under active development.
--- Breaking changes can happen at any point in time
+-- Breaking changes can happen at any point in time.
 
 -- Learn more about Neovim lua api
 -- https://neovim.io/doc/user/lua-guide.html
@@ -33,6 +33,25 @@ vim.keymap.set({'n', 'x'}, 'gp', '"+p', {desc = 'Paste clipboard content'})
 -- ==                               PLUGINS                                == --
 -- ========================================================================== --
 
+vim.api.nvim_create_autocmd('PackChanged', {
+  desc = 'execute plugin callbacks',
+  callback = function(event)
+    local data = event.data or {}
+    local kind = data.kind or ''
+    local callback = vim.tbl_get(data, 'spec', 'data', 'on_' .. kind)
+
+    if type(callback) ~= 'function' then
+      return
+    end
+
+    -- possible callbacks: on_install, on_update, on_delete
+    local ok, err = pcall(callback, data)
+    if not ok then
+      vim.notify(err, vim.log.levels.ERROR)
+    end
+  end,
+})
+
 -- NOTE: `vim.pack` is an experimental feature.
 -- see :help vim.pack
 vim.pack.add({
@@ -40,7 +59,15 @@ vim.pack.add({
   {src = 'https://github.com/folke/which-key.nvim'},
   {src = 'https://github.com/neovim/nvim-lspconfig'},
   {src = 'https://github.com/nvim-mini/mini.nvim', version = 'main'},
-  {src = 'https://github.com/nvim-treesitter/nvim-treesitter', version = 'main'},
+  {
+    src = 'https://github.com/nvim-treesitter/nvim-treesitter',
+    version = 'main',
+    data = {
+      on_update = function()
+        vim.cmd('TSUpdate')
+      end,
+    },
+  },
 })
 
 -- ========================================================================== --
@@ -166,16 +193,6 @@ vim.api.nvim_create_autocmd('FileType', {
       ts_filetypes[ft] = true
       ts_enable(buffer, lang)
     end)
-  end,
-})
-
-vim.api.nvim_create_autocmd('PackChanged', {
-  desc = 'auto-update treesitter parsers',
-  callback = function(event)
-    local args = event.data
-    if args.spec.name == 'nvim-treesitter' and args.kind == 'update' then
-      vim.cmd.TSUpdate()
-    end
   end,
 })
 
