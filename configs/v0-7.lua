@@ -17,6 +17,8 @@ vim.o.termguicolors = true
 vim.o.updatetime = 250
 vim.o.timeoutlen = 300
 vim.o.signcolumn = 'yes'
+vim.o.complete = '.,w,b,u'
+vim.o.completeopt = 'menuone,noselect'
 
 -- Space as leader key
 vim.g.mapleader = ' '
