@@ -131,7 +131,12 @@ require('mini.extra').setup({})
 require('mini.snippets').setup({})
 
 -- See :help MiniCompletion.config
-require('mini.completion').setup({})
+require('mini.completion').setup({
+  lsp_completion = {
+    source_func = 'omnifunc',
+    auto_setup = false,
+  },
+})
 
 -- See :help which-key.nvim-which-key-setup
 require('which-key').setup({
@@ -205,6 +210,13 @@ vim.api.nvim_create_autocmd('LspAttach', {
     vim.keymap.set('n', 'gd', '<cmd>lua vim.lsp.buf.definition()<cr>', opts)
     vim.keymap.set('n', 'grd', '<cmd>lua vim.lsp.buf.declaration()<cr>', opts)
     vim.keymap.set({'n', 'x'}, 'gq', '<cmd>lua vim.lsp.buf.format({async = true})<cr>', opts)
+
+    local id = vim.tbl_get(event, 'data', 'client_id')
+    local client = id and vim.lsp.get_client_by_id(id)
+
+    if client and client:supports_method('textDocument/completion') then
+      vim.bo[event.buf].omnifunc = 'v:lua.MiniCompletion.completefunc_lsp'
+    end
   end,
 })
 

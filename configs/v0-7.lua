@@ -153,7 +153,12 @@ require('mini.statusline').setup({})
 require('mini.extra').setup({})
 
 -- See :help MiniCompletion.config
-require('mini.completion').setup({})
+require('mini.completion').setup({
+  lsp_completion = {
+    source_func = 'omnifunc',
+    auto_setup = false,
+  },
+})
 
 -- See :help which-key.nvim-which-key-setup
 local wk = require('which-key')
@@ -180,6 +185,14 @@ vim.keymap.set('n', ']d', '<cmd>lua vim.diagnostic.goto_next()<cr>')
 
 lsp_defaults.on_attach = function(client, bufnr)
   local opts = {buffer = bufnr}
+
+  if client.supports_method('textDocument/completion') then
+    vim.bo[bufnr].omnifunc = 'v:lua.MiniCompletion.completefunc_lsp'
+  end
+
+  if client.supports_method('textDocument/definition') then
+    vim.bo[bufnr].tagfunc = 'v:lua.vim.lsp.tagfunc'
+  end
 
   -- These keymaps will become defaults after Neovim v0.11
   vim.keymap.set('n', 'grr', '<cmd>lua vim.lsp.buf.references()<cr>', opts)
