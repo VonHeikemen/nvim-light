@@ -173,11 +173,15 @@ local lspconfig = require('lspconfig')
 local lsp_defaults = lspconfig.util.default_config
 local nvim_07 = vim.fn.has('nvim-0.8') == 0
 
+vim.keymap.set('n', '<C-w>d', '<cmd>lua vim.diagnostic.open_float()<cr>')
+vim.keymap.set('n', '<C-w><C-d>', '<cmd>lua vim.diagnostic.open_float()<cr>')
+vim.keymap.set('n', '[d', '<cmd>lua vim.diagnostic.goto_prev()<cr>')
+vim.keymap.set('n', ']d', '<cmd>lua vim.diagnostic.goto_next()<cr>')
+
 lsp_defaults.on_attach = function(client, bufnr)
   local opts = {buffer = bufnr}
 
   -- These keymaps will become defaults after Neovim v0.11
-  -- I've added them here for backwards compatibility
   vim.keymap.set('n', 'grr', '<cmd>lua vim.lsp.buf.references()<cr>', opts)
   vim.keymap.set('n', 'gri', '<cmd>lua vim.lsp.buf.implementation()<cr>', opts)
   vim.keymap.set('n', 'grt', '<cmd>lua vim.lsp.buf.type_definition()<cr>', opts)
