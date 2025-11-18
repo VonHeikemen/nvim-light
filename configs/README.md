@@ -13,6 +13,7 @@ nvim --version
 
 If you need support for older Neovim versions:
 
+* `v0-5.lua` targets NVIM v0.5 and v0.6
 * `v0-7.lua` targets NVIM v0.7 and v0.8
 * `v0-9.lua` targets NVIM v0.9 and v0.10
 
