@@ -5,6 +5,7 @@ Lightweight configuration focused on providing "basic features" with little boil
 ## Requirements
 
 * Neovim v0.5.1 or greater.
+  * v0.11 is recommended
 * git.
 * [tree-sitter CLI](https://github.com/tree-sitter/tree-sitter).
 * A `C` compiler. Can be `gcc`, `tcc` or `zig`.
@@ -45,9 +46,9 @@ If you need a `C` compiler then `zig` is the easiest to install. It's available 
 
   If you need support for older Neovim versions:
 
-  - [configs/v0-5.lua](https://github.com/VonHeikemen/nvim-light/blob/main/configs/v0-5.lua) targets NVIM v0.5 and v0.6
-  - [configs/v0-7.lua](https://github.com/VonHeikemen/nvim-light/blob/main/configs/v0-7.lua) targets NVIM v0.7 and v0.8
-  - [configs/v0-9.lua](https://github.com/VonHeikemen/nvim-light/blob/main/configs/v0-9.lua) targets NVIM v0.9 and v0.10
+  - [configs/v0-9.lua](https://github.com/VonHeikemen/nvim-light/blob/main/configs/v0-9.lua) targets NVIM v0.10 and v0.9
+  - [configs/v0-7.lua](https://github.com/VonHeikemen/nvim-light/blob/main/configs/v0-7.lua) targets NVIM v0.8 and v0.7
+  - [configs/v0-5.lua](https://github.com/VonHeikemen/nvim-light/blob/main/configs/v0-5.lua) targets NVIM v0.6 and v0.5
 
 * Open Neovim, use the command `nvim` in your terminal. When Neovim starts all plugins will be downloaded automatically.
 
