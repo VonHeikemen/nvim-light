@@ -169,6 +169,8 @@ wk.register({gr = 'LSP Actions'})
 wk.register({f = 'Fuzzy Find', b = 'Buffers'}, {prefix = '<leader>'})
 
 -- Treesitter setup
+-- NOTE: the list of supported parsers is in the documentation:
+-- https://github.com/nvim-treesitter/nvim-treesitter/tree/v0.7.2#supported-languages
 local ts_parsers = {'lua', 'vim', 'help', 'c', 'query'}
 require('nvim-treesitter.configs').setup({
   highlight = {enable = true},

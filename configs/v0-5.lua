@@ -184,6 +184,8 @@ vim.api.nvim_set_keymap('n', '<leader>fd', '<cmd>Telescope diagnostics<cr>', {no
 vim.api.nvim_set_keymap('n', '<leader>fs', '<cmd>Telescope current_buffer_fuzzy_find<cr>', {noremap = true})
 
 -- Treesitter setup
+-- NOTE: the list of supported parsers is in the documentation:
+-- https://github.com/nvim-treesitter/nvim-treesitter/tree/8a1acc00d2a768985a79358d1a6caa9f08a0eeea#supported-languages
 local ts_parsers = {'lua', 'vim', 'help', 'c', 'query'}
 require('nvim-treesitter.configs').setup({
   highlight = {enable = true},
