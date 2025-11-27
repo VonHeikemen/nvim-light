@@ -112,11 +112,12 @@ So inside this configuration there is a variable called `ts_parsers`, and initia
 ```lua
 local ts_parsers = {'lua', 'vim', 'vimdoc', 'c', 'query'}
 ```
+
 That will be a list of parsers, and they will be installed automatically. You can add more languages to this list, but make sure is supported by the plugin `nvim-treesitter`.
 
-Is important to note `nvim-treesitter` no longer supports Neovim versions below **v0.11**. So on older versions of Neovim `nvim-treesitter` will be pinned to version from the [master branch](https://github.com/nvim-treesitter/nvim-treesitter/tree/master). In this case you'll find the list of supported languages here: [supported languages](https://github.com/nvim-treesitter/nvim-treesitter/tree/master?tab=readme-ov-file#supported-languages).
+I've left a link to nvim-treesitter's documentation inside each configuration file. That will take you to the list of supported languages of the version that will be installed.
 
-New versions of `nvim-treesitter` are under the [main branch](https://github.com/nvim-treesitter/nvim-treesitter/tree/main). The list of supported is located here: [SUPPORTED_LANGUAGES.md](https://github.com/nvim-treesitter/nvim-treesitter/blob/main/SUPPORTED_LANGUAGES.md).
+Another way to see the list of supported languages is by using tab-completion in Neovim's command-line mode. In Neovim you enter command-line mode by typing `:`, write `TSInstall`, press space, and then press the tab key. Neovim will show you the completion menu with all the available parsers.
 
 ## About the plugin manager
 
