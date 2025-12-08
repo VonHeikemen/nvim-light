@@ -186,5 +186,6 @@ Leader key: `Space`.
 | [which-key.nvim](https://github.com/folke/which-key.nvim)                                | Provide clues for keymaps.                                                |
 | [mini.nvim](https://github.com/nvim-mini/mini.nvim)                                      | Collection of independent lua modules that enhance Neovim's features.     |
 | [nvim-treesitter](https://github.com/nvim-treesitter/nvim-treesitter)                    | Configures treesitter parsers.                                            |
+| [ts-enable.nvim](https://github.com/VonHeikemen/ts-enable.nvim)                          | Enable treesitter based features (Neovim v0.11+ only).                    |
 | [nvim-lspconfig](https://github.com/neovim/nvim-lspconfig)                               | Quickstart configs for Neovim's LSP client.                               |
 
