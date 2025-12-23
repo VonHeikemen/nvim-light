@@ -19,7 +19,7 @@ If you need a `C` compiler then `zig` is the easiest to install. It's available 
 
 ## Installation
 
-* I recommend installing Neovim's [latest stable version](https://vonheikemen.github.io/learn-nvim/101/installation.html). Or at least Neovim v0.9.
+* I recommend installing Neovim's [latest stable version](https://vonheikemen.github.io/learn-nvim/101/installation.html).
 
 * Backup your existing configuration if you have one.
 
@@ -117,7 +117,7 @@ That will be a list of parsers, and they will be installed automatically. You ca
 
 I've left a link to nvim-treesitter's documentation inside each configuration file. That will take you to the list of supported languages of the version that will be installed.
 
-Another way to see the list of supported languages is by using tab-completion in Neovim's command-line mode. In Neovim you enter command-line mode by typing `:`, write `TSInstall`, press space, and then press the tab key. Neovim will show you the completion menu with all the available parsers.
+Another way to see the list of supported languages is by using tab-completion in Neovim's command-line mode. In Neovim, enter command-line mode by typing `:`, write `TSInstall`, press space, and then press the tab key. Neovim will show you the completion menu with all the available parsers. Note that on Neovim v0.11 and greater treesitter features must be enabled manually, so even if you install a parser with the command `:TSInstall` that parser should be added to the variable `ts_parsers`.
 
 ## About the plugin manager
 
@@ -180,12 +180,12 @@ Leader key: `Space`.
 
 ## Plugin list
 
-| Name                                                                                     | Description                                                               |
-| ---                                                                                      | ---                                                                       |
-| [tokyonight.nvim](https://github.com/folke/tokyonight.nvim)                              | Collection of colorscheme for Neovim.                                     |
-| [which-key.nvim](https://github.com/folke/which-key.nvim)                                | Provide clues for keymaps.                                                |
-| [mini.nvim](https://github.com/nvim-mini/mini.nvim)                                      | Collection of independent lua modules that enhance Neovim's features.     |
-| [nvim-treesitter](https://github.com/nvim-treesitter/nvim-treesitter)                    | Configures treesitter parsers.                                            |
-| [ts-enable.nvim](https://github.com/VonHeikemen/ts-enable.nvim)                          | Enable treesitter based features (Neovim v0.11+ only).                    |
-| [nvim-lspconfig](https://github.com/neovim/nvim-lspconfig)                               | Quickstart configs for Neovim's LSP client.                               |
+| Name                                                                                     | Description                                                                    |
+| ---                                                                                      | ---                                                                            |
+| [tokyonight.nvim](https://github.com/folke/tokyonight.nvim)                              | Collection of colorscheme for Neovim.                                          |
+| [which-key.nvim](https://github.com/folke/which-key.nvim)                                | Provide clues for keymaps.                                                     |
+| [mini.nvim](https://github.com/nvim-mini/mini.nvim)                                      | Collection of independent lua modules that enhance Neovim's features.          |
+| [nvim-treesitter](https://github.com/nvim-treesitter/nvim-treesitter)                    | Manage treesitter parsers and provide query files for the supported languages. |
+| [ts-enable.nvim](https://github.com/VonHeikemen/ts-enable.nvim)                          | Enable treesitter based features (Neovim v0.11+ only).                         |
+| [nvim-lspconfig](https://github.com/neovim/nvim-lspconfig)                               | Quickstart configs for Neovim's LSP client.                                    |
 
