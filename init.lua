@@ -1,0 +1,8 @@
+---
+-- The content of this file was moved to configs/stable.lua
+-- You'll find it here:
+-- https://github.com/VonHeikemen/nvim-light/blob/main/configs/stable.lua
+--
+-- I would love to delete this file but it seems like it still gets
+-- a fair amount of visits on github, so i'll have it just to keep the link alive
+---
