@@ -162,6 +162,7 @@ require('mini.completion').setup({
 
 -- See :help which-key.nvim-which-key-setup
 require('which-key').setup({
+  preset = 'helix',
   icons = {
     mappings = false,
     keys = {
