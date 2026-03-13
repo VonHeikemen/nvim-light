@@ -128,6 +128,7 @@ Neovim versions below **v0.11** will use `mini.deps` as the plugin manager. Make
 Neovim **v0.12** and greater will use `vim.pack`, a builtin plugin manager currently under development.
 
 * [vim.pack official documentation](https://neovim.io/doc/user/pack.html#vim.pack).
+* [A Guide to vim.pack](https://echasnovski.com/blog/2026-03-13-a-guide-to-vim-pack)
 
 ## Keybindings
 
