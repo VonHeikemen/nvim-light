@@ -38,80 +38,70 @@ _G.User = {}
 
 -- NOTE: In this configuration we don't have access to all modules in mini.nvim.
 -- A few extra plugins are needed to fill the missing features.
---   * mini.deps is replaced by minpac (plugin manager)
+--   * mini.deps is replaced by vim-plug (plugin manager)
 --   * mini.pick is replaced by telescope (fuzzy finder)
 --   * mini.files is replaced by netrw (file explorer)
 
-local minpac = function(plug)
-  local uv = vim.loop or vim.uv
-  local packpath = vim.fn.stdpath('data') .. '/site'
-  local path = packpath .. '/pack/minpac/opt/minpac'
-  vim.g.minpac_ready = true
+vim.g.vimplug_ready = true
+local uv = vim.loop or vim.uv
+local vim_plug = vim.fn.stdpath('data') .. '/site/pack/junegunn/start/vim-plug/autoload'
 
-  if not uv.fs_stat(path) then
-    print('Installing minpac....')
-    vim.fn.system({
-      'git',
-      'clone',
-      '--filter=blob:none',
-      'https://github.com/k-takata/minpac',
-      path
-    })
+if not uv.fs_stat(vim_plug) then
+  print('Installing vim-plug....')
+  vim.fn.system({
+    'git',
+    'clone',
+    '--filter=blob:none',
+    'https://github.com/junegunn/vim-plug',
+    vim_plug
+  })
+  
+  local switch_cmd = {'git', 'switch', '--detach', '0.14.0'}
+  local job_opts = {cwd = vim_plug}
+  vim.fn.jobwait({vim.fn.jobstart(switch_cmd, job_opts)})
 
-    vim.g.minpac_ready = false
-    User.InstallPlugins = function()
-      User.PackInit()
-      vim.call('minpac#update', '', {['do'] = 'source $MYVIMRC'})
-    end
-    vim.cmd('autocmd VimEnter * lua User.InstallPlugins()')
-  end
-
-  vim.cmd([[
-    command! PackUpdate lua User.PackInit(); vim.call('minpac#update', '')
-    command! PackClean  lua User.PackInit(); vim.call('minpac#clean')
-    command! PackStatus packadd minpac | call minpac#status()
-  ]])
-
-  User.PackInit = function()
-    vim.cmd('packadd minpac')
-    vim.call('minpac#init', {dir = packpath})
-    plug(vim.fn['minpac#add'])
-  end
+  vim.g.vimplug_ready = false
+  vim.cmd('packadd vim-plug')
+  vim.cmd('autocmd VimEnter * PlugInstall --sync | source $MYVIMRC')
 end
 
-minpac(function(add)
-  add('folke/which-key.nvim', {
-    rev = '4b7167f8fb2dba3d01980735e3509e172c024c29',
-    frozen = true,
-  })
+local Plug = vim.fn['plug#']
 
-  add('nvim-mini/mini.nvim', {
-    rev = '3f2c7a2aee528309fb42091b723285fb7630a0c2',
-    frozen = true,
-  })
+vim.call('plug#begin')
 
-  add('nvim-treesitter/nvim-treesitter', {
-    rev = '8a1acc00d2a768985a79358d1a6caa9f08a0eeea',
-    frozen = true,
-  })
+Plug('folke/which-key.nvim', {
+  commit = '4b7167f8fb2dba3d01980735e3509e172c024c29',
+  frozen = true,
+})
 
-  add('neovim/nvim-lspconfig', {
-    rev = '99596a8cabb050c6eab2c049e9acde48f42aafa4',
-    frozen = true,
-  })
+Plug('nvim-mini/mini.nvim', {
+  commit = '3f2c7a2aee528309fb42091b723285fb7630a0c2',
+  frozen = true,
+})
 
-  add('nvim-lua/plenary.nvim', {
-    rev = 'a672e11c816d4a91ef01253ba1a2567d20e08e55',
-    frozen = true,
-  })
+Plug('nvim-treesitter/nvim-treesitter', {
+  commit = '8a1acc00d2a768985a79358d1a6caa9f08a0eeea',
+  frozen = true,
+})
 
-  add('nvim-telescope/telescope.nvim', {
-    rev = '80cdb00b221f69348afc4fb4b701f51eb8dd3120',
-    frozen = true,
-  })
-end)
+Plug('neovim/nvim-lspconfig', {
+  commit = '99596a8cabb050c6eab2c049e9acde48f42aafa4',
+  frozen = true,
+})
 
-if not vim.g.minpac_ready then
+Plug('nvim-lua/plenary.nvim', {
+  commit = 'a672e11c816d4a91ef01253ba1a2567d20e08e55',
+  frozen = true,
+})
+
+Plug('nvim-telescope/telescope.nvim', {
+  commit = '80cdb00b221f69348afc4fb4b701f51eb8dd3120',
+  frozen = true,
+})
+
+vim.call('plug#end')
+
+if not vim.g.vimplug_ready then
   return
 end
 
