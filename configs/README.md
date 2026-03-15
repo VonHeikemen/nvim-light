@@ -34,6 +34,12 @@ nvim --headless -c 'echo stdpath("config") . "\n"' -c 'quit'
 
 Neovim does not create this directory automatically. You have to do that yourself.
 
+## Neovim still supports vimscript
+
+Notice there is also a file called `example.vim`, it exists to show Neovim can still be configured with vimscript. You don't have to create an `init.lua` file to configure Neovim. If you prefer vimscript, create an `init.vim` file in Neovim's config directory.
+
+Plugins written in "old" vimscript syntax can still work in Neovim. And you can also interact with lua plugins using vimscript syntax.
+
 ## Why multiple configurations?
 
 Maintaining one configuration that is backwards compatible with older versions means introducing complexity that doesn't feel right. And also forces me to lock plugins to a specific version, so that it works on macOS but also on Ubuntu and Windows.
