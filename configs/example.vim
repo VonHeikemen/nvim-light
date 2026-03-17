@@ -63,15 +63,18 @@ if !s:vimplug_ready
   finish
 endif
 
+" Report lua runtime errors at the end of the startup process
+lua RE = {}; Safe = function(f) vim.list_extend(RE, {pcall(f)}, 2, 2) end
+autocmd VimEnter * lua if RE[1] then vim.notify(table.concat(RE,'\n\n'),3) end
+
+" Use 'setup' function of lua plugins in a safe way
+let Setup = luaeval('function(m,c) Safe(function() require(m).setup(c) end) end')
 
 " ============================================================================ "
 " ===                            PLUGIN CONFIG                             === "
 " ============================================================================ "
 
 colorscheme tokyonight
-
-lua Try = function(f) require('mini.misc').safely('now', f) end
-let Setup = luaeval('function(m,c) Try(function() require(m).setup(c) end) end')
 
 " See :help MiniIcons.config
 " Change style to 'glyph' if you have a font with fancy icons
@@ -87,7 +90,7 @@ call Setup('mini.notify', {'lsp_progress': {'enable': v:false}})
 call Setup('mini.bufremove', {})
 
 " Close buffer and preserve window layout
-nnoremap <leader>bc <cmd>lua Try(MiniBufremove.delete)<cr>
+nnoremap <leader>bc <cmd>lua pcall(MiniBufremove.delete)<cr>
 
 " See :help MiniFiles.config
 call Setup('mini.files', {})
