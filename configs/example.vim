@@ -63,7 +63,8 @@ if !s:vimplug_ready
   finish
 endif
 
-" Report lua runtime errors at the end of the startup process
+" Define the function 'Safe' to catch lua runtime errors.
+" Error messages will show up at the end of the startup process.
 lua RE = {}; Safe = function(f) vim.list_extend(RE, {pcall(f)}, 2, 2) end
 autocmd VimEnter * lua if RE[1] then vim.notify(table.concat(RE,'\n\n'),3) end
 
