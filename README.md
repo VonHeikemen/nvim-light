@@ -5,7 +5,7 @@ Lightweight configuration focused on providing "basic features" with little boil
 ## Requirements
 
 * Neovim v0.5.1 or greater.
-  * v0.11 is recommended
+  * v0.12 is recommended
 * git.
 * [tree-sitter CLI](https://github.com/tree-sitter/tree-sitter).
 * A `C` compiler. Can be `gcc`, `tcc` or `zig`.
@@ -33,10 +33,11 @@ If you need a `C` compiler then `zig` is the easiest to install. It's available 
 
   Use whatever method you want to create the config folder and also an empty `init.lua` file.
 
-* Choose a configuration file from the [configs directory](https://github.com/VonHeikemen/nvim-light/tree/main/configs) and copy its content to your own `init.lua`.
+* Choose a configuration file from the [configs directory](https://github.com/VonHeikemen/nvim-light/tree/main/configs) and copy its content to your own `init.lua`. For example:
 
-  - [configs/stable.lua](https://github.com/VonHeikemen/nvim-light/blob/main/configs/stable.lua) requires NVIM v0.11 or greater
-  - [configs/nightly.lua](https://github.com/VonHeikemen/nvim-light/blob/main/configs/nightly.lua) targets NVIM v0.12, the current nightly version
+  - [configs/stable.lua](https://github.com/VonHeikemen/nvim-light/blob/main/configs/stable.lua) requires NVIM v0.12 or greater
+  - [configs/v0-11.lua](https://github.com/VonHeikemen/nvim-light/blob/main/configs/v0-11.lua) requires NVIM v0.11 or greater
+  - [configs/v0-9.lua](https://github.com/VonHeikemen/nvim-light/blob/main/configs/v0-9.lua) targets NVIM v0.9 and v0.10
 
   You can check Neovim's version using this command.
 
@@ -44,11 +45,7 @@ If you need a `C` compiler then `zig` is the easiest to install. It's available 
   nvim --version
   ```
 
-  If you need support for older Neovim versions:
-
-  - [configs/v0-9.lua](https://github.com/VonHeikemen/nvim-light/blob/main/configs/v0-9.lua) targets NVIM v0.10 and v0.9
-  - [configs/v0-7.lua](https://github.com/VonHeikemen/nvim-light/blob/main/configs/v0-7.lua) targets NVIM v0.8 and v0.7
-  - [configs/v0-5.lua](https://github.com/VonHeikemen/nvim-light/blob/main/configs/v0-5.lua) targets NVIM v0.6 and v0.5
+  If you need support for older Neovim versions, go to the [configs directory](https://github.com/VonHeikemen/nvim-light/tree/main/configs) of this github repository. You'll find configuration files for specific Neovim versions going all the way back to NVIM v0.5.
 
 * Open Neovim, use the command `nvim` in your terminal. When Neovim starts all plugins will be downloaded automatically.
 

@@ -2,8 +2,8 @@
 
 Each lua script in this directory is a configuration made for a specific version of Neovim.
 
-* `stable.lua` requires NVIM v0.11 or greater
-* `nightly.lua` targets NVIM v0.12, the current "nightly version" 
+* `stable.lua` requires NVIM v0.12 or greater
+* `v0-11.lua` targets NVIM v0.11 or greater
 
 You can check Neovim's version using this command.
 

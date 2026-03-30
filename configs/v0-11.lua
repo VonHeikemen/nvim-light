@@ -30,17 +30,64 @@ vim.keymap.set({'n', 'x'}, 'gp', '"+p', {desc = 'Paste clipboard content'})
 -- ==                               PLUGINS                                == --
 -- ========================================================================== --
 
--- NOTE: To install a plugin you just need to add the URL to the repository.
--- But as soon as you need to add more information, like the git branch or 
--- commit, use the "plugin spec" form. See :help vim.pack
+local mini = {}
 
-vim.pack.add({
-  'https://github.com/folke/tokyonight.nvim',
-  'https://github.com/folke/which-key.nvim',
-  'https://github.com/VonHeikemen/ts-enable.nvim',
-  'https://github.com/neovim/nvim-lspconfig',
-  {src = 'https://github.com/nvim-mini/mini.nvim', version = 'main'},
-  {src = 'https://github.com/nvim-treesitter/nvim-treesitter', version = 'main'},
+mini.branch = 'main'
+mini.packpath = vim.fn.stdpath('data') .. '/site'
+
+function mini.require_deps()
+  local mini_path = mini.packpath .. '/pack/deps/start/mini.nvim'
+
+  if not vim.uv.fs_stat(mini_path) then
+    print('Installing mini.nvim....')
+    vim.fn.system({
+      'git',
+      'clone',
+      '--filter=blob:none',
+      'https://github.com/nvim-mini/mini.nvim',
+      string.format('--branch=%s', mini.branch),
+      mini_path
+    })
+
+    vim.cmd('packadd mini.nvim | helptags ALL')
+  end
+
+  local ok, deps = pcall(require, 'mini.deps')
+  if not ok then
+    return {}
+  end
+
+  return deps
+end
+
+local MiniDeps = mini.require_deps()
+if not MiniDeps.setup then
+  return
+end
+
+-- See :help MiniDeps.config
+MiniDeps.setup({
+  path = {
+    package = mini.packpath,
+  },
+})
+
+MiniDeps.add('folke/tokyonight.nvim')
+MiniDeps.add('folke/which-key.nvim')
+MiniDeps.add('VonHeikemen/ts-enable.nvim')
+MiniDeps.add('neovim/nvim-lspconfig')
+MiniDeps.add({
+  source = 'nvim-mini/mini.nvim',
+  checkout = mini.branch,
+})
+MiniDeps.add({
+  source = 'nvim-treesitter/nvim-treesitter',
+  checkout = 'main',
+  hooks = {
+    post_checkout = function()
+      vim.cmd.TSUpdate()
+    end,
+  },
 })
 
 -- ========================================================================== --
@@ -141,13 +188,6 @@ vim.g.ts_enable = {
   auto_install = true,
   highlights = true,
 }
-
--- Try to update all parsers after a plugin update
-vim.api.nvim_create_autocmd('PackChanged', {
-  pattern = 'nvim-treesitter',
-  desc = 'Update treesitter parsers',
-  command = 'TSUpdate'
-})
 
 -- LSP setup
 vim.api.nvim_create_autocmd('LspAttach', {

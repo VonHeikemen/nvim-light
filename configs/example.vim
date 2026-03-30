@@ -1,4 +1,4 @@
-" NOTE: Neovim v0.11 or greater is needed
+" NOTE: Neovim v0.12 or greater is needed
 " NOTE: This file exists to demonstrate vimscript 
 " is still a viable option to configure Neovim.
 "
@@ -28,40 +28,22 @@ let mapleader= "\<Space>"
 noremap gy "+y
 noremap gp "+p
 
-
 " ============================================================================ "
 " ===                               PLUGINS                                === "
 " ============================================================================ "
 
-let s:vimplug_path = stdpath('data') . '/site/pack/junegunn/start/vim-plug/autoload'
-let s:vimplug_ready = v:true
+" NOTE: To install a plugin you just need to add the URL to the repository.
+" But as soon as you need to add more information, like the git branch or 
+" commit, use the "plugin spec" form. See :help vim.pack
 
-if !isdirectory(s:vimplug_path)
-  echo "Installing vim-plug...."
-  call system([
-  \  'git', 'clone', '--filter=blob:none', 
-  \  'https://github.com/junegunn/vim-plug', s:vimplug_path
-  \])
-
-  let s:vimplug_ready = v:false
-  packadd vim-plug
-  autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
-endif
-
-call plug#begin()
-
-Plug 'folke/tokyonight.nvim'
-Plug 'folke/which-key.nvim'
-Plug 'VonHeikemen/ts-enable.nvim'
-Plug 'neovim/nvim-lspconfig'
-Plug 'nvim-mini/mini.nvim', {'branch': 'main'}
-Plug 'nvim-treesitter/nvim-treesitter', {'branch': 'main', 'do': ':TSUpdate'}
-
-call plug#end()
-
-if !s:vimplug_ready
-  finish
-endif
+call v:lua.vim.pack.add([
+\  'https://github.com/folke/tokyonight.nvim',
+\  'https://github.com/folke/which-key.nvim',
+\  'https://github.com/VonHeikemen/ts-enable.nvim',
+\  'https://github.com/neovim/nvim-lspconfig',
+\  {'src': 'https://github.com/nvim-mini/mini.nvim', 'version': 'main'},
+\  {'src': 'https://github.com/nvim-treesitter/nvim-treesitter', 'version': 'main'},
+\])
 
 " Define the function 'Safe' to catch lua runtime errors.
 " Error messages will show up at the end of the startup process.
@@ -161,6 +143,9 @@ let g:ts_enable = {
 \  'highlights': v:true,
 \  'parsers': s:ts_parsers
 \}
+
+" Try to update all parsers after a plugin update
+autocmd PackChanged nvim-treesitter TSUpdate
 
 " LSP setup
 function! LspAttached() abort
