@@ -118,14 +118,14 @@ Another way to see the list of supported languages is by using tab-completion in
 
 ## About the plugin manager
 
-Neovim versions below **v0.11** will use `mini.deps` as the plugin manager. Make sure to read the documentation to learn how to add more plugins:
-
-* [mini.deps overview](https://nvim-mini.org/mini.nvim/doc/mini-deps.html#minideps-overview)
-
-Neovim **v0.12** and greater will use `vim.pack`, a builtin plugin manager currently under development.
+Neovim **v0.12** and greater will use `vim.pack`, the builtin plugin manager.
 
 * [vim.pack official documentation](https://neovim.io/doc/user/pack.html#vim.pack).
 * [A Guide to vim.pack](https://echasnovski.com/blog/2026-03-13-a-guide-to-vim-pack)
+
+Neovim **v0.11** or lower use a third-party plugin manager, `mini.deps`.
+
+* [mini.deps overview](https://nvim-mini.org/mini.nvim/doc/mini-deps.html#minideps-overview)
 
 ## Keybindings
 
