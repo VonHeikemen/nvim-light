@@ -82,12 +82,7 @@ MiniDeps.add({
 })
 MiniDeps.add({
   source = 'nvim-treesitter/nvim-treesitter',
-  checkout = 'main',
-  hooks = {
-    post_checkout = function()
-      vim.cmd.TSUpdate()
-    end,
-  },
+  checkout = '7caec274fd19c12b55902a5b795100d21531391f',
 })
 
 -- ========================================================================== --
@@ -179,7 +174,7 @@ require('which-key').add({
 
 -- Treesitter setup
 -- NOTE: the list of supported parsers is in the documentation:
--- https://github.com/nvim-treesitter/nvim-treesitter/blob/main/SUPPORTED_LANGUAGES.md
+-- https://github.com/nvim-treesitter/nvim-treesitter/blob/7caec274fd19c12b55902a5b795100d21531391f/SUPPORTED_LANGUAGES.md
 local ts_parsers = {'lua', 'vim', 'vimdoc', 'c', 'query'}
 
 -- See :help ts-enable-config
