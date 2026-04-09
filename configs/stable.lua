@@ -37,10 +37,16 @@ vim.keymap.set({'n', 'x'}, 'gp', '"+p', {desc = 'Paste clipboard content'})
 vim.pack.add({
   'https://github.com/folke/tokyonight.nvim',
   'https://github.com/folke/which-key.nvim',
-  'https://github.com/VonHeikemen/ts-enable.nvim',
   'https://github.com/neovim/nvim-lspconfig',
   {src = 'https://github.com/nvim-mini/mini.nvim', version = 'main'},
-  {src = 'https://github.com/nvim-treesitter/nvim-treesitter', version = 'main'},
+  {
+    src = 'https://github.com/nvim-treesitter/nvim-treesitter',
+    version = '7caec274fd19c12b55902a5b795100d21531391f'
+  },
+  {
+    src = 'https://github.com/VonHeikemen/ts-enable.nvim',
+    version = 'v1.x'
+  },
 })
 
 -- ========================================================================== --

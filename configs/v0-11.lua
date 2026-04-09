@@ -74,7 +74,6 @@ MiniDeps.setup({
 
 MiniDeps.add('folke/tokyonight.nvim')
 MiniDeps.add('folke/which-key.nvim')
-MiniDeps.add('VonHeikemen/ts-enable.nvim')
 MiniDeps.add('neovim/nvim-lspconfig')
 MiniDeps.add({
   source = 'nvim-mini/mini.nvim',
@@ -83,6 +82,10 @@ MiniDeps.add({
 MiniDeps.add({
   source = 'nvim-treesitter/nvim-treesitter',
   checkout = '7caec274fd19c12b55902a5b795100d21531391f',
+})
+MiniDeps.add({
+  source = 'VonHeikemen/ts-enable.nvim',
+  checkout = 'v1.x',
 })
 
 -- ========================================================================== --
