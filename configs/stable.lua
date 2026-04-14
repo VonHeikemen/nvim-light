@@ -149,6 +149,8 @@ vim.g.ts_enable = {
 }
 
 -- Try to update all parsers after a plugin update
+-- NOTE: since nvim-treesitter is pinned this command
+-- would only be executed if you downgrade the plugin
 vim.api.nvim_create_autocmd('PackChanged', {
   pattern = 'nvim-treesitter',
   desc = 'Update treesitter parsers',

@@ -145,6 +145,8 @@ let g:ts_enable = {
 \}
 
 " Try to update all parsers after a plugin update
+" NOTE: since nvim-treesitter is archived this command
+" would only be executed if you downgrade the plugin
 autocmd PackChanged nvim-treesitter TSUpdate
 
 " LSP setup
