@@ -39,10 +39,10 @@ noremap gp "+p
 call v:lua.vim.pack.add([
 \  'https://github.com/folke/tokyonight.nvim',
 \  'https://github.com/folke/which-key.nvim',
-\  'https://github.com/VonHeikemen/ts-enable.nvim',
 \  'https://github.com/neovim/nvim-lspconfig',
 \  {'src': 'https://github.com/nvim-mini/mini.nvim', 'version': 'main'},
 \  {'src': 'https://github.com/nvim-treesitter/nvim-treesitter', 'version': 'main'},
+\  {'src': 'https://github.com/VonHeikemen/ts-enable.nvim', 'version': 'v1.x'},
 \])
 
 " Define the function 'Safe' to catch lua runtime errors.
