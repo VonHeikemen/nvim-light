@@ -104,17 +104,9 @@ vim.lsp.enable('lua_ls')
 
 To get a more accurate syntax highlight for your favorite language you need to download something called a "treesitter parser".
 
-So inside this configuration there is a variable called `ts_parsers`, and initially it looks like this. 
+Neovim **v0.10** or lower will use the "old version" of [nvim-treesitter](https://github.com/nvim-treesitter/nvim-treesitter/tree/master) to install parsers and enable syntax highlight.
 
-```lua
-local ts_parsers = {'lua', 'vim', 'vimdoc', 'c', 'query'}
-```
-
-That will be a list of parsers, and they will be installed automatically. You can add more languages to this list, but make sure is supported by the plugin `nvim-treesitter`.
-
-I've left a link to nvim-treesitter's documentation inside each configuration file. That will take you to the list of supported languages of the version that will be installed.
-
-Another way to see the list of supported languages is by using tab-completion in Neovim's command-line mode. In Neovim, enter command-line mode by typing `:`, write `TSInstall`, press space, and then press the tab key. Neovim will show you the completion menu with all the available parsers. Note that on Neovim v0.11 and greater treesitter features must be enabled manually, so even if you install a parser with the command `:TSInstall` that parser should be added to the variable `ts_parsers`.
+Neovim **v0.11** and greater will use [ts-enble.nvim](https://github.com/VonHeikemen/ts-enable.nvim) to manage parsers and enable syntax highlight.
 
 ## About the plugin manager
 
@@ -183,7 +175,7 @@ Leader key: `Space`.
 | [tokyonight.nvim](https://github.com/folke/tokyonight.nvim)                              | Collection of colorscheme for Neovim.                                          |
 | [which-key.nvim](https://github.com/folke/which-key.nvim)                                | Provide clues for keymaps.                                                     |
 | [mini.nvim](https://github.com/nvim-mini/mini.nvim)                                      | Collection of independent lua modules that enhance Neovim's features.          |
-| [nvim-treesitter](https://github.com/nvim-treesitter/nvim-treesitter)                    | Manage treesitter parsers and provide query files for the supported languages. |
+| [nvim-treesitter](https://github.com/nvim-treesitter/nvim-treesitter/tree/master)        | Manage treesitter parsers and provide query files for the supported languages. |
 | [ts-enable.nvim](https://github.com/VonHeikemen/ts-enable.nvim)                          | Enable treesitter based features (Neovim v0.11+ only).                         |
 | [nvim-lspconfig](https://github.com/neovim/nvim-lspconfig)                               | Quickstart configs for Neovim's LSP client.                                    |
 

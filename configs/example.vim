@@ -41,8 +41,7 @@ call v:lua.vim.pack.add([
 \  'https://github.com/folke/which-key.nvim',
 \  'https://github.com/neovim/nvim-lspconfig',
 \  {'src': 'https://github.com/nvim-mini/mini.nvim', 'version': 'main'},
-\  {'src': 'https://github.com/nvim-treesitter/nvim-treesitter', 'version': 'main'},
-\  {'src': 'https://github.com/VonHeikemen/ts-enable.nvim', 'version': 'v1.x'},
+\  {'src': 'https://github.com/VonHeikemen/ts-enable.nvim', 'version': 'v2.x'},
 \])
 
 " Define the function 'Safe' to catch lua runtime errors.
@@ -132,22 +131,12 @@ call Setup('which-key', {
 \  }
 \})
 
-" Treesitter setup
-" NOTE: the list of supported parsers is in the documentation:
-" https://github.com/nvim-treesitter/nvim-treesitter/blob/main/SUPPORTED_LANGUAGES.md
-let s:ts_parsers = ['lua', 'vim', 'vimdoc', 'c', 'query']
-
 " See :help ts-enable-config
 let g:ts_enable = {
+\  'auto_init': v:true,
 \  'auto_install': v:true,
-\  'highlights': v:true,
-\  'parsers': s:ts_parsers
+\  'highlights': v:true
 \}
-
-" Try to update all parsers after a plugin update
-" NOTE: since nvim-treesitter is archived this command
-" would only be executed if you downgrade the plugin
-autocmd PackChanged nvim-treesitter TSUpdate
 
 " LSP setup
 function! LspAttached() abort

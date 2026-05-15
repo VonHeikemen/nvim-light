@@ -39,14 +39,7 @@ vim.pack.add({
   'https://github.com/folke/which-key.nvim',
   'https://github.com/neovim/nvim-lspconfig',
   {src = 'https://github.com/nvim-mini/mini.nvim', version = 'main'},
-  {
-    src = 'https://github.com/nvim-treesitter/nvim-treesitter',
-    version = '7caec274fd19c12b55902a5b795100d21531391f'
-  },
-  {
-    src = 'https://github.com/VonHeikemen/ts-enable.nvim',
-    version = 'v1.x'
-  },
+  {src = 'https://github.com/VonHeikemen/ts-enable.nvim', version = 'v2.x'},
 })
 
 -- ========================================================================== --
@@ -136,26 +129,12 @@ require('which-key').add({
   {'<leader>b', group = 'Buffer'},
 })
 
--- Treesitter setup
--- NOTE: the list of supported parsers is in the documentation:
--- https://github.com/nvim-treesitter/nvim-treesitter/blob/main/SUPPORTED_LANGUAGES.md
-local ts_parsers = {'lua', 'vim', 'vimdoc', 'c', 'query'}
-
 -- See :help ts-enable-config
 vim.g.ts_enable = {
-  parsers = ts_parsers,
+  auto_init = true,
   auto_install = true,
-  highlights = true,
+  highlights = true
 }
-
--- Try to update all parsers after a plugin update
--- NOTE: since nvim-treesitter is pinned this command
--- would only be executed if you downgrade the plugin
-vim.api.nvim_create_autocmd('PackChanged', {
-  pattern = 'nvim-treesitter',
-  desc = 'Update treesitter parsers',
-  command = 'TSUpdate'
-})
 
 -- LSP setup
 vim.api.nvim_create_autocmd('LspAttach', {
