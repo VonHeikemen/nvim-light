@@ -129,7 +129,8 @@ require('which-key').add({
   {'<leader>b', group = 'Buffer'},
 })
 
--- See :help ts-enable-config
+-- Treesitter setup
+-- See: https://github.com/VonHeikemen/ts-enable.nvim#usage
 vim.g.ts_enable = {
   auto_init = true,
   auto_install = true,
