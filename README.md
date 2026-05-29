@@ -98,11 +98,17 @@ vim.lsp.enable('lua_ls')
 
 ## About syntax highlight
 
-To get a more accurate syntax highlight for your favorite language you need to download something called a "treesitter parser".
+To get a more accurate syntax highlight for your favorite language you need to download something called a "treesitter parser."
 
-Neovim **v0.10** or lower will use the "old version" of [nvim-treesitter](https://github.com/nvim-treesitter/nvim-treesitter/tree/master) to install parsers and enable syntax highlight. New parsers can be installed by executing the command `:TSInstall` followed by the name of a supported language. See the list of [supported languages](https://github.com/nvim-treesitter/nvim-treesitter/tree/v0.10.0#supported-languages) in the documentation.
+[Treesitter](https://vonheikemen.github.io/learn-nvim/feature/treesitter.html) is the reason we need a C compiler available in the system. Long story short, treesitter's main job is to read the source code of a file and turn that into a data structure. Once this data structure is generated Neovim can start doing things with it. Syntax highlight being one of those things. Why we need a C compiler? Because treesitter does not support any programming language out of the box. We need a treesitter parser, which is the component that deals with the specific syntax of a language. So each programming language has its own treesitter parser. And for Neovim to use a parser it needs to be compiled.
 
-Neovim **v0.11** and greater will use [ts-enable.nvim](https://github.com/VonHeikemen/ts-enable.nvim) instead of nvim-treesitter. nvim-treesitter has been archived and this is a bit of a problem because the versions of the parsers were hardcoded in the plugin itself. `ts-enable.nvim` is configured to create a lockfile (`treesitter-parsers.json`) in your Neovim configuration directory, so you get to control which parsers can be installed at which version. The initial lockfile will have a [list of 26 treesitter parsers](https://github.com/VonHeikemen/ts-enable.nvim/blob/v2.x/snapshots/README.md#auto_init), which include some popular programming languages. And you can add or remove parsers if needed. A parser will be installed automatically if you open a file that is compatible with one of the parsers listed in the lockfile. See the [usage section](https://github.com/VonHeikemen/ts-enable.nvim#usage) of the documentation for more details.
+To install and compile treesitter parsers we use plugins. Neovim **v0.10** and lower will use the "old version" of [nvim-treesitter](https://github.com/nvim-treesitter/nvim-treesitter/tree/v0.10.0). Neovim **v0.11** and greater will use [ts-enable.nvim](https://github.com/VonHeikemen/ts-enable.nvim).
+
+* [nvim-treesitter: Language parsers](https://github.com/nvim-treesitter/nvim-treesitter/tree/v0.10.0#language-parsers)
+
+* [ts-enable.nvim: Usage](https://github.com/VonHeikemen/ts-enable.nvim#usage)
+
+Note: nvim-treesitter has been archived, that's why we don't use it for newer versions of Neovim. Neovim maintaners do have a [work plan to replace nvim-treesitter](https://github.com/neovim/neovim/issues/39006) in some way. Now, that will take time and while we wait for the Neovim team to have something concrete, we can use ts-enable.nvim.
 
 ## About the plugin manager
 
