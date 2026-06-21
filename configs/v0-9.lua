@@ -32,11 +32,13 @@ vim.keymap.set({'n', 'x'}, 'gp', '"+p', {desc = 'Paste clipboard content'})
 local mini = {}
 local nvim_10 = vim.fn.has('nvim-0.10') == 1
 
-mini.branch = 'main'
+mini.version = 'v0.18.0'
 mini.packpath = vim.fn.stdpath('data') .. '/site'
 
--- Last version that supports Neovim v0.9
-mini.revision = '3923662bf3d6ca49a9503f8d7196ea0450983e6a'
+if not nvim_10 then
+  -- Last version that supports Neovim v0.9
+  mini.version = '3923662bf3d6ca49a9503f8d7196ea0450983e6a'
+end
 
 function mini.require_deps()
   local uv = vim.uv or vim.loop
@@ -49,15 +51,12 @@ function mini.require_deps()
       'clone',
       '--filter=blob:none',
       'https://github.com/nvim-mini/mini.nvim',
-      string.format('--branch=%s', mini.branch),
       mini_path
     })
 
-    if not nvim_10 then
-      local switch_cmd = {'git', 'switch', '--detach', mini.revision}
-      local job_opts = {cwd = mini_path}
-      vim.fn.jobwait({vim.fn.jobstart(switch_cmd, job_opts)})
-    end
+    local switch_cmd = {'git', 'switch', '--detach', mini.version}
+    local job_opts = {cwd = mini_path}
+    vim.fn.jobwait({vim.fn.jobstart(switch_cmd, job_opts)})
 
     vim.cmd('packadd mini.nvim | helptags ALL')
   end
@@ -82,11 +81,17 @@ MiniDeps.setup({
   },
 })
 
-MiniDeps.add('folke/tokyonight.nvim')
-MiniDeps.add('folke/which-key.nvim')
+MiniDeps.add({
+  source = 'folke/tokyonight.nvim',
+  checkout = 'cdc07ac78467a233fd62c493de29a17e0cf2b2b6',
+})
+MiniDeps.add({
+  source = 'folke/which-key.nvim',
+  checkout = '3aab2147e74890957785941f0c1ad87d0a44c15a'
+})
 MiniDeps.add({
   source = 'nvim-mini/mini.nvim',
-  checkout = nvim_10 and mini.branch or mini.revision,
+  checkout = mini.version,
 })
 MiniDeps.add({
   source = 'neovim/nvim-lspconfig',
